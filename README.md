@@ -1,2 +1,2 @@
 # trail
-Use to generate a trail behind an element
+Use to generate a trail behind an element.
