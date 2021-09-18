@@ -1,0 +1,23 @@
+{
+  "name": "@dinoly/trail",
+  "version": "0.1.0",
+  "description": "Generate a trail behind an element.",
+  "main": "trail.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dinoly/trail.git"
+  },
+  "keywords": [
+    "trails",
+    "trail effect"
+  ],
+  "author": "Ashutosh Vishu Yadav",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dinoly/trail/issues"
+  },
+  "homepage": "https://github.com/dinoly/trail#readme"
+}

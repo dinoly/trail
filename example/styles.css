@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  padding: 0;
+  cursor: none;
+  background: black;
+  width: 100vw;
+  height: 100vh;
+}
+
+.circle {
+  background-color: lightblue;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.big-circle {
+  background-color: transparent;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  border: .2rem solid white;
+  pointer-events: none;
+}
+
+.text {
+  color: white;
+}
