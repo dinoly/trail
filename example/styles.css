@@ -27,3 +27,34 @@ body {
 .text {
   color: white;
 }
+
+.side {
+  animation: sideway 8s ease-in infinite;
+}
+
+@keyframes sideway {
+  0% {
+    left: 5vw;
+    top: 10vh;
+  }
+
+  25% {
+    left: 90vw;
+    top: 10vh;
+  }
+
+  50% {
+    left: 90vw;
+    top: 90vh;
+  }
+
+  75% {
+    left: 5vw;
+    top: 90vh;
+  }
+
+  100% {
+    left: 5vw;
+    top: 10vh;
+  }
+}

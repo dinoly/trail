@@ -8,7 +8,7 @@
 </head>
 
 <body>
-
+  <button type="button side">BUTTON</button>
   <div class="circle"></div>
   <!-- <div class="big-circle"></div> -->
   <!-- <h1 class="text">TRAIL</h1> -->
@@ -16,32 +16,37 @@
   <!-- <circle cx="50" cy="50" r="10" stroke="green" stroke-width="4" fill="yellow" />
     Sorry, your browser does not support inline SVG.
   </svg> -->
-
-  <script src="../trail.js"></script>
+  <script src="../dev/shapes.js"></script>
+  <script src="../dev/trail.js"></script>
   <script>
     // NOTE:NODE EXAMPLE
     const move = new Trail({
       class: "circle",
-      particle: "circle"
+      particle: "square",
+      color: "lightblue",
+      isnode: true,
+      // effect: "spread",
+      // trails: true
     });
-    move.follow();
+    move.followNode();
     // NOTE:TEXT EXAMPLE
     // const move = new Trail({
     //   class: "text",
     //   isnode: false
     // });
-    // move.follow();
+    // move.followMouse();
     // NOTE:SVG EXAMPLE
     // const move = new Trail({
     //   class: "svg",
     //   isnode: false
     // });
-    // move.follow();
-    // const movee = new Trail({
+    // move.followMouse();
+    // NOTE: MULTIPLE
+    // const move = new Trail({
     //   class: "big-circle",
     //   particle: "circle"
     // });
-    // movee.follow();
+    // move.followMouse();
   </script>
 </body>
 

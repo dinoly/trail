@@ -1,6 +1,6 @@
 {
   "name": "@dinoly/trail",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Generate a trail behind an element.",
   "main": "trail.js",
   "scripts": {
@@ -19,5 +19,6 @@
   "bugs": {
     "url": "https://github.com/dinoly/trail/issues"
   },
-  "homepage": "https://github.com/dinoly/trail#readme"
+  "homepage": "https://github.com/dinoly/trail#readme",
+  "devDependencies": {}
 }
