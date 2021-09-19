@@ -7,7 +7,7 @@ class Trail {
   constructor(props){
     this.class = props.class
     this.node = document.querySelector('.'+this.class);
-    this.isnode = props.isnode === true ? props.isnode : false;
+    this.isnode = props.isnode === false ? props.isnode : true;
     this.color = props.color;
     this.margin = props.margin ? props.margin : '0px';
     this.particle = props.particle ? props.particle : 'self';
@@ -96,7 +96,7 @@ class Trail {
       fy.addEventListener("animationend", fy.parentNode.removeChild(fy));
     }, 1000);
   }
-  
+
   createParticles(){
     for(let i=0;i<2;i++){
       let randV = Math.floor(Math.random()*6-6);

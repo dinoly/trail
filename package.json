@@ -1,8 +1,8 @@
 {
   "name": "@dinoly/trail",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "Generate a trail behind an element.",
-  "main": "trail.js",
+  "main": "trail.min.js",
   "scripts": {
     "test": "test"
   },
@@ -12,7 +12,10 @@
   },
   "keywords": [
     "trails",
-    "trail effect"
+    "trail effect",
+    "cdn",
+    "animation",
+    "particles"
   ],
   "author": "Ashutosh Vishu Yadav",
   "license": "MIT",
