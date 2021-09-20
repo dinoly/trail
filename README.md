@@ -7,22 +7,24 @@ Trail, Generates a trail behind an Html element.
 
 ## Content Outline
 - [Introduction](#introduction)
-- [Sample Example](sample-example)
-- [Arguments](arguments)
-- [Methods](methods)
+- [Sample Example](#sample-example)
+- [Arguments](#arguments)
+- [Methods](#methods)
 
 ## Introduction
 Place the following `<script>` near the end of your pages, right before the closing `</body>` tag.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.0/trail.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.1/trail.min.js" crossorigin="anonymous"></script>
 ```
 After the above script, make a new trail object and pass in the class of the object you want to create a trail behind.
-```js
-const move = new Trail({
-  class: "circle"
-});
-move.followMouse();
+```html
+<script>
+  const move = new Trail({
+    class: "circle"
+  });
+  move.followMouse();
+</script>
 ```
 
 ## Sample example
@@ -45,7 +47,7 @@ Html
     });
     move.followMouse();
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.0/trail.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.1/trail.min.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
@@ -69,7 +71,7 @@ body {
   height: 1.5rem;
   border-radius: 50%;
   pointer-events: none;
-  margin: 10px;
+  margin: 10px; // will be removed
 }
 ```
 
@@ -81,7 +83,6 @@ body {
   particle: None, // self
   color: "default", // white
   isnode: false,
-  margin: "default", // 0px
   effect: "default", // straight
   trails: false
 }

@@ -23,6 +23,8 @@ class Trail {
     this.node.style.position = 'absolute';
     this.node.style.transform = `translate(calc(-50% - ${this.margin}), calc(-50% - ${this.margin}))`;
     this.node.style.zIndex = `10000`;
+    this.node.style.pointerEvents = "none";
+    this.node.style.margin = "0";
   }
 
   setUpParticles(){
@@ -45,9 +47,12 @@ class Trail {
   }
 
   followMouse(){
+    var w = Number(window.getComputedStyle(this.node).getPropertyValue('width').replace("px", ""));
+    var h = Number(window.getComputedStyle(this.node).getPropertyValue('height').replace("px", ""));
     document.addEventListener("mousemove",(pos) =>{
-      this.node.style.left = pos.clientX + 'px';
-      this.node.style.top = pos.clientY + 'px';
+      // console.log(pos.clientX, pos.clientX + 12)
+      this.node.style.left = (pos.clientX + w/2) + 'px';
+      this.node.style.top = (pos.clientY + h/2) + 'px';
       this.trails ? this.createParticles() : this.createParticle();
     })
   }
