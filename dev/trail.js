@@ -95,6 +95,10 @@ class Trail {
     else{
       fy = this.node.cloneNode(false);
     }
+    if(this.#effect === "rotate"){
+      let randA = Math.floor(Math.random()*120+30).toString()+"deg";
+      fy.style.transform += `rotate(${randA})`;
+    }
     if(this.#particle !== "self"){
       fy.classList.remove(this.target);
     }

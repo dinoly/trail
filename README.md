@@ -137,7 +137,16 @@ effect: "spread",
 <summary>Effects type</summary>
 
   + "spread"
+  + "rotate"
 </details>
+
+### trails
+If `true` will create trails with multiple particles, currently `2`.
+
+Note: this may create a lag, use the `effect: "spread"` which will create similar effect with one particle.
+```js
+trails: true
+```
 
 ## Methods
 ### followMouse
