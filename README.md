@@ -18,7 +18,7 @@ Trail, Generates a trail behind an Html element.
 Place the following `<script>` near the end of your pages, right before the closing `</body>` tag.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.3/trail.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.2.0/trail.min.js" crossorigin="anonymous"></script>
 ```
 After the above script, make a new trail object and pass in the target of the object you want to create a trail behind.
 ```html
@@ -50,7 +50,7 @@ Html
     });
     move.followMouse();
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.3/trail.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.2.0/trail.min.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
