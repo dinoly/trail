@@ -92,13 +92,13 @@ body {
 ```
 
 ### target
-pass the target of the element you want the trail.
+Is the class of the element behind which the trail will be generated.
 ```js
 target: "example",
 ```
 
 ### particle
-Which type of particle trail you want default: `self`
+Shape of the particle in trail, default: `self`
 ```js
 particle: "circle",
 ```
