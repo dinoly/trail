@@ -9,6 +9,7 @@ var triangle = `
 .trail {
   width: 0;
   height: 0;
+  background-color:transparent;
   border-left: .2rem solid transparent;
   border-right: .2rem solid transparent;
   border-bottom: .2rem solid white;
