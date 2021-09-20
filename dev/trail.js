@@ -1,5 +1,5 @@
 var circle = '.trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}';
-var triangle ='.trail{width:0;height:0;border-left:0.2rem solid transparent;border-right:0.2rem solid transparent;border-bottom:0.2rem solid white}';
+var triangle ='.trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}';
 var square = '.trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
 var singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
 
@@ -31,15 +31,21 @@ class Trail {
   #setUpParticles(){
     if(this.#particle === 'circle'){
       this.#styles += circle;
+      if(this.#color){
+        this.#styles += `.trail{background: ${this.#color};color:${this.#color};`
+      }
     }
     else if(this.#particle === 'triangle'){
       this.#styles += triangle;
+      if(this.#color){
+        this.#styles += `.trail{border-bottom:0.25rem solid ${this.#color};color:${this.#color};`
+      }
     }
     else if(this.#particle === 'square'){
       this.#styles += square;
-    }
-    if(this.#color){
-      this.#styles += `.trail{background: ${this.#color};color:${this.#color}border-color:${this.#color}};`
+      if(this.#color){
+        this.#styles += `.trail{background: ${this.#color};color:${this.#color};`
+      }
     }
     let stylesheet = document.createElement('style');
     stylesheet.type = 'text/css';
