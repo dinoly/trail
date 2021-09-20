@@ -1,8 +1,8 @@
 # Trail
-[![NPM version](https://img.shields.io/npm/v/@dinoly/trail/latest?color=blue&label=trail%40latest)](https://www.npmjs.com/package/@dinoly/trail)
+[![NPM version](https://img.shields.io/npm/v/@dinoly/trail/latest?color=blue&label=&logo=npm)](https://www.npmjs.com/package/@dinoly/trail)
+<!-- [![Active milestones](https://img.shields.io/github/milestones/open/dinoly/trail?label=Milestone&style=social)](https://github.com/dinoly/trail/milestones?state=open) -->
 
-<!-- [![Milestones](https://img.shields.io/github/milestones/progress/dinoly/trail/2?style=social)](https://github.com/dinoly/trail/milestone/1)
-[![Active milestones](https://img.shields.io/github/milestones/open/dinoly/trail?style=social)](https://github.com/dinoly/trail/milestones?state=open) -->
+[![Milestones](https://img.shields.io/github/milestones/progress/dinoly/trail/1?style=social)](https://github.com/dinoly/trail/milestone/1)
 
 **NOTE: This is a Work In Progress project.**
 
@@ -20,7 +20,7 @@ Place the following `<script>` near the end of your pages, right before the clos
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.2.0/trail.min.js" crossorigin="anonymous"></script>
 ```
-After the above script, make a new trail object and pass in the target of the object you want to create a trail behind.
+After the above script, make a new trail object and pass in the class of the element you want to create a trail behind.
 ```html
 <script>
   const move = new Trail({
@@ -83,9 +83,10 @@ body {
 ```js
 {
   target: None,
+  area: None,
   particle: "default", // self
   color: "default", // white
-  isnode: false,
+  isnode: true,
   effect: "default", // straight
   trails: false
 }
@@ -95,6 +96,12 @@ body {
 Is the class of the element behind which the trail will be generated.
 ```js
 target: "example",
+```
+
+### area
+Is the class of the element inside which the trail will be generated.
+```js
+area: "example",
 ```
 
 ### particle
@@ -160,3 +167,13 @@ Does not make the Html element follow the **Mouse Pointer**, add css to move the
 ```js
 Trail.followNode();
 ```
+
+### activeArea
+make the Html element follow the **Mouse Pointer** when mouse hover the certain element, set with `area: <class-of-area>`
+```js
+Trail.followNode();
+```
+
+### Experiments
+
+[experiment1](./experiment1.png)

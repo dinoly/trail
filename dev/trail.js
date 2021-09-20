@@ -4,11 +4,12 @@ var square = '.trail{background-color:white;width:0.3rem;height:0.3rem;border-ra
 var singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
 
 class Trail {
-  #particle = "";#color = "";#effect = "";#isnode = "";#trails="";#styles="";
+  #particle = "";#color = "";#effect = "";#isnode = "";#trails="";#styles="";#area="";
   constructor(props){
     var target = props.target
     this.node = document.querySelector('.'+target);
     this.#isnode = props.isnode === false ? props.isnode : true;
+    this.area = props.area;
     this.#color = props.color;
     this.margin = props.margin ? props.margin : '0px';
     this.#particle = props.particle ? props.particle : 'self';
@@ -71,8 +72,25 @@ class Trail {
       let pos = that.node.getBoundingClientRect();
       that.node.style.left = (pos.left + w/2) + 'px';
       that.node.style.top = (pos.top + h/2) + 'px';
-      this.#trails ? that.#createParticles() : that.#createParticle();
+      that.#trails ? that.#createParticles() : that.#createParticle();
     }, 100)
+  }
+
+  activeArea(){
+    let _area = document.querySelector('.'+this.area);
+    _area.addEventListener('mouseover', ()=>{
+      var w = Number(window.getComputedStyle(this.node).getPropertyValue('width').replace("px", ""));
+      var h = Number(window.getComputedStyle(this.node).getPropertyValue('height').replace("px", ""));
+      _area.addEventListener("mousemove",(pos) =>{
+        this.node.style.left = (pos.clientX + w/2) + 'px';
+        this.node.style.top = (pos.clientY + h/2) + 'px';
+        this.#trails ? this.#createParticles() : this.#createParticle();
+      })
+    })
+
+    _area.addEventListener('mouseout', ()=>{
+      _area.removeEventListener("mousemove",()=>{})
+    })
   }
 
   // non working function
