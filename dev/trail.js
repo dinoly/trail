@@ -4,22 +4,23 @@ var square = '.trail{background-color:white;width:0.3rem;height:0.3rem;border-ra
 var singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
 
 class Trail {
+  #particle = "";#color = "";#effect = "";#isnode = "";#trails="";#styles="";
   constructor(props){
-    this.class = props.class
-    this.node = document.querySelector('.'+this.class);
-    this.isnode = props.isnode === false ? props.isnode : true;
-    this.color = props.color;
+    var target = props.target
+    this.node = document.querySelector('.'+target);
+    this.#isnode = props.isnode === false ? props.isnode : true;
+    this.#color = props.color;
     this.margin = props.margin ? props.margin : '0px';
-    this.particle = props.particle ? props.particle : 'self';
+    this.#particle = props.particle ? props.particle : 'self';
     this.tick = props.tick ? props.tick * 1000 : 5000;
-    this.styles = props.styles ? props.styles : singleT;
-    this.effect = props.effect ? props.effect : "straight";
-    this.trails = props.trails === true ? props.trails : false;
-    this.setUpStyles();
-    this.setUpParticles();
+    this.#styles = props.styles ? props.styles : singleT;
+    this.#effect = props.effect ? props.effect : "straight";
+    this.#trails = props.trails === true ? props.trails : false;
+    this.#setUpStyles();
+    this.#setUpParticles();
   }
 
-  setUpStyles(){
+  #setUpStyles(){
     this.node.style.position = 'absolute';
     this.node.style.transform = `translate(calc(-50% - ${this.margin}), calc(-50% - ${this.margin}))`;
     this.node.style.zIndex = `10000`;
@@ -27,22 +28,22 @@ class Trail {
     this.node.style.margin = "0";
   }
 
-  setUpParticles(){
-    if(this.particle === 'circle'){
-      this.styles += circle;
+  #setUpParticles(){
+    if(this.#particle === 'circle'){
+      this.#styles += circle;
     }
-    else if(this.particle === 'triangle'){
-      this.styles += triangle;
+    else if(this.#particle === 'triangle'){
+      this.#styles += triangle;
     }
-    else if(this.particle === 'square'){
-      this.styles += square;
+    else if(this.#particle === 'square'){
+      this.#styles += square;
     }
-    if(this.color){
-      this.styles += `.trail{background: ${this.color};color:${this.color}border-color:${this.color}};`
+    if(this.#color){
+      this.#styles += `.trail{background: ${this.#color};color:${this.#color}border-color:${this.#color}};`
     }
     let stylesheet = document.createElement('style');
     stylesheet.type = 'text/css';
-    stylesheet.innerHTML = this.styles;
+    stylesheet.innerHTML = this.#styles;
     document.head.appendChild(stylesheet);
   }
 
@@ -50,10 +51,9 @@ class Trail {
     var w = Number(window.getComputedStyle(this.node).getPropertyValue('width').replace("px", ""));
     var h = Number(window.getComputedStyle(this.node).getPropertyValue('height').replace("px", ""));
     document.addEventListener("mousemove",(pos) =>{
-      // console.log(pos.clientX, pos.clientX + 12)
       this.node.style.left = (pos.clientX + w/2) + 'px';
       this.node.style.top = (pos.clientY + h/2) + 'px';
-      this.trails ? this.createParticles() : this.createParticle();
+      this.#trails ? this.#createParticles() : this.#createParticle();
     })
   }
 
@@ -65,31 +65,32 @@ class Trail {
       let pos = that.node.getBoundingClientRect();
       that.node.style.left = (pos.left + w/2) + 'px';
       that.node.style.top = (pos.top + h/2) + 'px';
-      that.trails ? that.createParticles() : that.createParticle();
+      this.#trails ? that.#createParticles() : that.#createParticle();
     }, 100)
   }
 
   // non working function
-  trail(){
-    setInterval(this.createParticle(this) , this.tick);
+  #trail(){
+    console.log("private function")
+    // setInterval(this.#createParticle(this) , this.tick);
   }
 
-  createParticle(){
+  #createParticle(){
     let randV
-    if(this.effect === "spread"){
+    if(this.#effect === "spread"){
       randV = Math.floor(Math.random()*6-6);
     }else{
       randV = 0
     }
     let fy;
-    if(this.isnode === false){
+    if(this.#isnode === false){
       fy = this.node.cloneNode(true);
     }
     else{
       fy = this.node.cloneNode(false);
     }
-    if(this.particle !== "self"){
-      fy.classList.remove(this.class);
+    if(this.#particle !== "self"){
+      fy.classList.remove(this.target);
     }
     fy.classList.add("anim", "trail");
     fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
@@ -102,18 +103,18 @@ class Trail {
     }, 1000);
   }
 
-  createParticles(){
+  #createParticles(){
     for(let i=0;i<2;i++){
       let randV = Math.floor(Math.random()*6-6);
       let fy;
-      if(this.isnode === false){
+      if(this.#isnode === false){
         fy = this.node.cloneNode(true);
       }
       else{
         fy = this.node.cloneNode(false);
       }
-      if(this.particle !== "self"){
-        fy.classList.remove(this.class);
+      if(this.#particle !== "self"){
+        fy.classList.remove(this.target);
       }
       fy.classList.add("anim", "trail");
       fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";

@@ -1,7 +1,10 @@
-# trail
-[![NPM version](https://img.shields.io/npm/v/@dinoly/trail?color=blue)](https://www.npmjs.com/package/@dinoly/trail)
+# Trail
+[![NPM version](https://img.shields.io/npm/v/@dinoly/trail/latest?color=blue&label=trail%40latest&logo=npm)](https://www.npmjs.com/package/@dinoly/trail)
 
-**NOTE: This is a Work in progress project.**
+<!-- [![Milestones](https://img.shields.io/github/milestones/progress/dinoly/trail/2?style=social)](https://github.com/dinoly/trail/milestone/1)
+[![Active milestones](https://img.shields.io/github/milestones/open/dinoly/trail?style=social)](https://github.com/dinoly/trail/milestones?state=open) -->
+
+**NOTE: This is a Work In Progress project.**
 
 Trail, Generates a trail behind an Html element.
 
@@ -15,7 +18,7 @@ Trail, Generates a trail behind an Html element.
 Place the following `<script>` near the end of your pages, right before the closing `</body>` tag.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.1/trail.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.2/trail.min.js" crossorigin="anonymous"></script>
 ```
 After the above script, make a new trail object and pass in the class of the object you want to create a trail behind.
 ```html
@@ -47,7 +50,7 @@ Html
     });
     move.followMouse();
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.1/trail.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.2/trail.min.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
@@ -71,7 +74,7 @@ body {
   height: 1.5rem;
   border-radius: 50%;
   pointer-events: none;
-  margin: 10px; // will be removed
+  margin: 10px; /* will be removed */
 }
 ```
 
@@ -80,7 +83,7 @@ body {
 ```js
 {
   class: None,
-  particle: None, // self
+  particle: "default", // self
   color: "default", // white
   isnode: false,
   effect: "default", // straight
@@ -119,11 +122,11 @@ Set `false` if you want a trail for a **Text** or **Svg**, default: `true`
 isnode: false,
 ```
 
-### margin
+<!-- ### margin
 value of the margin that is applied on the **html node**.
 ```js
 margin: "2px",
-```
+``` -->
 
 ### effect
 The effect you want particles to have
