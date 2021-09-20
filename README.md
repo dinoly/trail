@@ -44,13 +44,13 @@ Html
 
 <body>
   <div class="circle"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.2.0/trail.min.js" crossorigin="anonymous"></script>
   <script>
     const move = new Trail({
       target: "circle",
     });
     move.followMouse();
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.2.0/trail.min.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
