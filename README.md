@@ -18,13 +18,13 @@ Trail, Generates a trail behind an Html element.
 Place the following `<script>` near the end of your pages, right before the closing `</body>` tag.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.2/trail.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.3/trail.min.js" crossorigin="anonymous"></script>
 ```
-After the above script, make a new trail object and pass in the class of the object you want to create a trail behind.
+After the above script, make a new trail object and pass in the target of the object you want to create a trail behind.
 ```html
 <script>
   const move = new Trail({
-    class: "circle"
+    target: "circle"
   });
   move.followMouse();
 </script>
@@ -46,11 +46,11 @@ Html
   <div class="circle"></div>
   <script>
     const move = new Trail({
-      class: "circle",
+      target: "circle",
     });
     move.followMouse();
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.2/trail.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.3/trail.min.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
@@ -82,7 +82,7 @@ body {
 ## Arguments
 ```js
 {
-  class: None,
+  target: None,
   particle: "default", // self
   color: "default", // white
   isnode: false,
@@ -91,10 +91,10 @@ body {
 }
 ```
 
-### class
-pass the class of the element you want the trail.
+### target
+pass the target of the element you want the trail.
 ```js
-class: "example",
+target: "example",
 ```
 
 ### particle
