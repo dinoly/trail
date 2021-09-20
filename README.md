@@ -1,5 +1,5 @@
 # Trail
-[![NPM version](https://img.shields.io/npm/v/@dinoly/trail/latest?color=blue&label=trail%40latest&logo=npm)](https://www.npmjs.com/package/@dinoly/trail)
+[![NPM version](https://img.shields.io/npm/v/@dinoly/trail/latest?color=blue&label=trail%40latest)](https://www.npmjs.com/package/@dinoly/trail)
 
 <!-- [![Milestones](https://img.shields.io/github/milestones/progress/dinoly/trail/2?style=social)](https://github.com/dinoly/trail/milestone/1)
 [![Active milestones](https://img.shields.io/github/milestones/open/dinoly/trail?style=social)](https://github.com/dinoly/trail/milestones?state=open) -->
