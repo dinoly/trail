@@ -68,7 +68,6 @@ class Trail {
     var that = this;
     setInterval(function(){
       let pos = that.node.getBoundingClientRect();
-      // console.log(pos)
       that.node.style.left = (pos.left + pos.width) + 'px';
       that.node.style.top = (pos.top + pos.height) + 'px';
       that.#trails ? that.#createParticles() : that.#createParticle();
@@ -88,12 +87,6 @@ class Trail {
     _area.addEventListener('mouseout', ()=>{
       _area.removeEventListener("mousemove",()=>{})
     })
-  }
-
-  // non working function
-  #trail(){
-    console.log("private function")
-    // setInterval(this.#createParticle(this) , this.tick);
   }
 
   #createParticle(){

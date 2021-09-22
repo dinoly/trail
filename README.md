@@ -1,6 +1,5 @@
 # Trail
 [![NPM version](https://img.shields.io/npm/v/@dinoly/trail/latest?color=blue&label=&logo=npm)](https://www.npmjs.com/package/@dinoly/trail)
-<!-- [![Active milestones](https://img.shields.io/github/milestones/open/dinoly/trail?label=Milestone&style=social)](https://github.com/dinoly/trail/milestones?state=open) -->
 
 [![Milestones](https://img.shields.io/github/milestones/progress/dinoly/trail/1?style=social)](https://github.com/dinoly/trail/milestone/1)
 
@@ -13,14 +12,14 @@ Trail, Generates a trail behind an Html element.
 - [Sample code](#sample-code)
 - [Arguments](#arguments)
 - [Methods](#methods)
-- [Images](#images)
+- [Gifs](#gifs)
 - [Future improvements](#future-improvements)
 
 ## Introduction
 Place the following `<script>` near the end of your pages, right before the closing `</body>` tag.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.2.0/trail.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.3.0/trail.min.js" crossorigin="anonymous"></script>
 ```
 After the above script, make a new trail object and pass in the class of the element you want to create a trail behind.
 ```html
@@ -46,7 +45,7 @@ Html
 
 <body>
   <div class="circle"></div>
-  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.2.0/trail.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.3.0/trail.min.js" crossorigin="anonymous"></script>
   <script>
     const move = new Trail({
       target: "circle",
@@ -176,9 +175,12 @@ make the Html element follow the **Mouse Pointer** when mouse hover the certain 
 Trail.activeArea();
 ```
 
-### Images
+### Gifs
+![follow mouse](./followMouse.gif)
 
-![sample 1](./sample1.png)
+![follow node](./followNode.gif)
+
+![active area](./activeArea.gif)
 
 ### Bugs and Future Improvements
 Bugs
@@ -186,6 +188,6 @@ Bugs
 
 Improvements
 - Resizing the trail.
-- trail behind multiple elements with one `Trail` object.
+- Trail behind multiple elements with one `Trail` object.
 - More Effects and Particles.
 - Support for nested elements.
