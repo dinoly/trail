@@ -68,8 +68,8 @@ class Trail {
     var that = this;
     setInterval(function(){
       let pos = that.node.getBoundingClientRect();
-      that.node.style.left = (pos.left + that.#w/100*65) + 'px';
-      that.node.style.top = (pos.top + that.#h/100*65) + 'px';
+      that.node.style.left = (pos.left) + 'px';
+      that.node.style.top = (pos.top) + 'px';
       that.#trails ? that.#createParticles() : that.#createParticle();
     }, 100)
   }
@@ -77,11 +77,9 @@ class Trail {
   activeArea(){
     let _area = document.querySelector('.'+this.area);
     _area.addEventListener('mouseover', ()=>{
-      var w = Number(window.getComputedStyle(this.node).getPropertyValue('width').replace("px", ""));
-      var h = Number(window.getComputedStyle(this.node).getPropertyValue('height').replace("px", ""));
       _area.addEventListener("mousemove",(pos) =>{
-        this.node.style.left = (pos.clientX + w/100*50) + 'px';
-        this.node.style.top = (pos.clientY + h/100*50) + 'px';
+        this.node.style.left = (pos.clientX + this.#w/100*50) + 'px';
+        this.node.style.top = (pos.clientY + this.#h/100*50) + 'px';
         this.#trails ? this.#createParticles() : this.#createParticle();
       })
     })
@@ -100,7 +98,7 @@ class Trail {
   #createParticle(){
     let randV
     if(this.#effect === "spread"){
-      randV = Math.floor(Math.random()*6-6);
+      randV = Math.floor(Math.random()*12-6);
     }else{
       randV = 0
     }
@@ -119,8 +117,6 @@ class Trail {
       fy.classList.remove(this.target);
     }
     fy.classList.add("anim", `${this.#target}_trail`);
-    // fy.style.left = this.node.style.left - "20px";
-    // fy.style.top = this.node.style.top - "20px";
     fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
     fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV)+"px";
     if(this.#particle !== "self"){
@@ -137,7 +133,7 @@ class Trail {
 
   #createParticles(){
     for(let i=0;i<2;i++){
-      let randV = Math.floor(Math.random()*6-6);
+      let randV = Math.floor(Math.random()*12-6);
       let fy;
       if(this.#isnode === false){
         fy = this.node.cloneNode(true);
@@ -153,10 +149,12 @@ class Trail {
         fy.classList.remove(this.target);
       }
       fy.classList.add("anim", `${this.#target}_trail`);
-      // fy.style.left = this.node.style.left - "20px";
-      // fy.style.top = this.node.style.top - "20px";
-      fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV-this.#w/3)+"px";
-      fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV-this.#h/3)+"px";
+      fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
+      fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV)+"px";
+      if(this.#particle !== "self"){
+        fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV-this.#w/3)+"px";
+        fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV-this.#h/3)+"px";
+      }
       fy.style.zIndex = "0";
       document.body.appendChild(fy);
 
