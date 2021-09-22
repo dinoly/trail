@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Trail</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <!-- <div class="circle"></div> -->
+  <div class="_1 circle side"></div>
+  <div class="_2 circle side2"></div>
+  <div class="_3 circle side3"></div>
+  <script src="../dev/trail.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.2.0/trail.min.js" crossorigin="anonymous"></script> -->
+  <script>
+    const move1 = new Trail({
+      target: "_1",
+      particle: "square",
+      color: "white",
+      // effect: "rotate"
+    });
+    move1.followNode();
+    const move2 = new Trail({
+      target: "_2",
+      // particle: "square",
+      color: "green",
+      // effect: "spread"
+    });
+    move2.followNode();
+    const move3 = new Trail({
+      target: "_3",
+      // particle: "square",
+      color: "orange",
+      // effect: "spread"
+    });
+    move3.followNode();
+  </script>
+</body>
+
+</html>

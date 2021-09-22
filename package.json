@@ -1,10 +1,11 @@
 {
   "name": "@dinoly/trail",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Generate a trail behind an element.",
   "main": "trail.min.js",
   "scripts": {
-    "test": "test"
+    "test": "jest",
+    "check-content": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
   },
   "repository": {
     "type": "git",

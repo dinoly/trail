@@ -1,8 +1,7 @@
 # Trail
-[![NPM version](https://img.shields.io/npm/v/@dinoly/trail/latest?color=blue&label=trail%40latest&logo=npm)](https://www.npmjs.com/package/@dinoly/trail)
+[![NPM version](https://img.shields.io/npm/v/@dinoly/trail/latest?color=blue&label=&logo=npm)](https://www.npmjs.com/package/@dinoly/trail)
 
-<!-- [![Milestones](https://img.shields.io/github/milestones/progress/dinoly/trail/2?style=social)](https://github.com/dinoly/trail/milestone/1)
-[![Active milestones](https://img.shields.io/github/milestones/open/dinoly/trail?style=social)](https://github.com/dinoly/trail/milestones?state=open) -->
+[![Milestones](https://img.shields.io/github/milestones/progress/dinoly/trail/1?style=social)](https://github.com/dinoly/trail/milestone/1)
 
 **NOTE: This is a Work In Progress project.**
 
@@ -10,17 +9,19 @@ Trail, Generates a trail behind an Html element.
 
 ## Content Outline
 - [Introduction](#introduction)
-- [Sample Example](#sample-example)
+- [Sample code](#sample-code)
 - [Arguments](#arguments)
 - [Methods](#methods)
+- [Gifs](#gifs)
+- [Bugs and Future Improvements](#bugs-and-future-tmprovements)
 
 ## Introduction
 Place the following `<script>` near the end of your pages, right before the closing `</body>` tag.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.3/trail.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.3.0/trail.min.js" crossorigin="anonymous"></script>
 ```
-After the above script, make a new trail object and pass in the target of the object you want to create a trail behind.
+After the above script, make a new trail object and pass in the class of the element you want to create a trail behind.
 ```html
 <script>
   const move = new Trail({
@@ -30,7 +31,7 @@ After the above script, make a new trail object and pass in the target of the ob
 </script>
 ```
 
-## Sample example
+## Sample code
 Html
 ```html
 <!-- index.html -->
@@ -44,13 +45,13 @@ Html
 
 <body>
   <div class="circle"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.3.0/trail.min.js" crossorigin="anonymous"></script>
   <script>
     const move = new Trail({
       target: "circle",
     });
     move.followMouse();
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.1.3/trail.min.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
@@ -83,9 +84,10 @@ body {
 ```js
 {
   target: None,
+  area: None,
   particle: "default", // self
   color: "default", // white
-  isnode: false,
+  isnode: true,
   effect: "default", // straight
   trails: false
 }
@@ -95,6 +97,12 @@ body {
 Is the class of the element behind which the trail will be generated.
 ```js
 target: "example",
+```
+
+### area
+Is the class of the element inside which the trail will be generated.
+```js
+area: "example",
 ```
 
 ### particle
@@ -156,7 +164,31 @@ Trail.followMouse();
 ```
 
 ### followNode
-Does not make the Html element follow the **Mouse Pointer**, add css to move the element how ever you like.
+Does not make the Html element follow the **Mouse Pointer**, add CSS to move the element how ever you like.
 ```js
 Trail.followNode();
 ```
+
+### activeArea
+make the Html element follow the **Mouse Pointer** when mouse hover a certain element, set with `area: <class-of-area>`
+```js
+Trail.activeArea();
+```
+
+### Gifs
+![follow mouse](./followMouse.gif)
+
+![follow node](./followNode.gif)
+
+![active area](./activeArea.gif)
+
+### Bugs and Future Improvements
+Bugs
+- Text offset.
+- Absolute center the trail of particles.
+
+Improvements
+- Resizing the trail.
+- Trail behind multiple elements with one `Trail` object.
+- More Effects and Particles.
+- Support for nested elements.
