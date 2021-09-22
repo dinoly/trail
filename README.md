@@ -13,7 +13,7 @@ Trail, Generates a trail behind an Html element.
 - [Arguments](#arguments)
 - [Methods](#methods)
 - [Gifs](#gifs)
-- [Future improvements](#future-improvements)
+- [Bugs and Future Improvements](#bugs-and-future-tmprovements)
 
 ## Introduction
 Place the following `<script>` near the end of your pages, right before the closing `</body>` tag.
@@ -148,7 +148,7 @@ effect: "spread",
   + "rotate"
 </details>
 
-### trails :bug:
+### trails
 If `true` will create trails with multiple particles, currently `2`.
 
 Note: this may create a lag, use the `effect: "spread"` which will create similar effect with one particle.
@@ -164,13 +164,13 @@ Trail.followMouse();
 ```
 
 ### followNode
-Does not make the Html element follow the **Mouse Pointer**, add css to move the element how ever you like.
+Does not make the Html element follow the **Mouse Pointer**, add CSS to move the element how ever you like.
 ```js
 Trail.followNode();
 ```
 
 ### activeArea
-make the Html element follow the **Mouse Pointer** when mouse hover the certain element, set with `area: <class-of-area>`
+make the Html element follow the **Mouse Pointer** when mouse hover a certain element, set with `area: <class-of-area>`
 ```js
 Trail.activeArea();
 ```
@@ -184,7 +184,8 @@ Trail.activeArea();
 
 ### Bugs and Future Improvements
 Bugs
-- Absolute centering the trail for particles.
+- Text offset.
+- Absolute center the trail of particles.
 
 Improvements
 - Resizing the trail.

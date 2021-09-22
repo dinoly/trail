@@ -4,7 +4,8 @@
   "description": "Generate a trail behind an element.",
   "main": "trail.min.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "check-content": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
   },
   "repository": {
     "type": "git",

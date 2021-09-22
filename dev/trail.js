@@ -4,12 +4,11 @@ var square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-ra
 var singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
 
 class Trail {
-  #target = "";#particle = "";#color = "";#effect = "";#isnode = "";#trails="";#styles="";#area="";#w="";#h="";
+  #target = "";#particle = "";#color = "";#effect = "";#isnode = "";#trails="";#styles="";#area="";#bounds="";
   constructor(props){
     this.#target = props.target;
     this.node = document.querySelector('.'+this.#target);
-    this.#w = window.getComputedStyle(this.node).getPropertyValue('width').replace("px", "")
-    this.#h = window.getComputedStyle(this.node).getPropertyValue('height').replace("px", "")
+    this.#bounds = this.node.getBoundingClientRect();
     this.#isnode = props.isnode === false ? props.isnode : true;
     this.area = props.area;
     this.#color = props.color;
@@ -57,9 +56,10 @@ class Trail {
   }
 
   followMouse(){
+    console.log(this.node.getBoundingClientRect().width, this.node.getBoundingClientRect().height)
     document.addEventListener("mousemove",(pos) =>{
-      this.node.style.left = (pos.clientX + this.#w/100*50) + 'px';
-      this.node.style.top = (pos.clientY + this.#h/100*50) + 'px';
+      this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
+      this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
       this.#trails ? this.#createParticles() : this.#createParticle();
     })
   }
@@ -68,8 +68,8 @@ class Trail {
     var that = this;
     setInterval(function(){
       let pos = that.node.getBoundingClientRect();
-      that.node.style.left = (pos.left + pos.width) + 'px';
-      that.node.style.top = (pos.top + pos.height) + 'px';
+      that.node.style.left = (pos.left + that.#bounds.width) + 'px';
+      that.node.style.top = (pos.top + that.#bounds.height) + 'px';
       that.#trails ? that.#createParticles() : that.#createParticle();
     }, 100)
   }
@@ -78,8 +78,8 @@ class Trail {
     let _area = document.querySelector('.'+this.area);
     _area.addEventListener('mouseover', ()=>{
       _area.addEventListener("mousemove",(pos) =>{
-        this.node.style.left = (pos.clientX + this.#w/100*50) + 'px';
-        this.node.style.top = (pos.clientY + this.#h/100*50) + 'px';
+        this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
+        this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
         this.#trails ? this.#createParticles() : this.#createParticle();
       })
     })
@@ -89,12 +89,12 @@ class Trail {
     })
   }
 
-  #createParticle(){
+  #createParticle(rand=0){
     let randV
     if(this.#effect === "spread"){
       randV = Math.floor(Math.random()*12-6);
     }else{
-      randV = 0
+      randV = rand;
     }
     let fy;
     if(this.#isnode === false){
@@ -114,8 +114,8 @@ class Trail {
     fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
     fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV)+"px";
     if(this.#particle !== "self"){
-      fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV-this.#w/3)+"px";
-      fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV-this.#h/3)+"px";
+      fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV-this.#bounds.width/3)+"px";
+      fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV-this.#bounds.height/3)+"px";
     }
     fy.style.zIndex = "0";
     document.body.appendChild(fy);
@@ -128,33 +128,7 @@ class Trail {
   #createParticles(){
     for(let i=0;i<2;i++){
       let randV = Math.floor(Math.random()*12-6);
-      let fy;
-      if(this.#isnode === false){
-        fy = this.node.cloneNode(true);
-      }
-      else{
-        fy = this.node.cloneNode(false);
-      }
-      if(this.#effect === "rotate"){
-        let randA = Math.floor(Math.random()*120+30).toString()+"deg";
-        fy.style.transform += `rotate(${randA})`;
-      }
-      if(this.#particle !== "self"){
-        fy.classList.remove(this.target);
-      }
-      fy.classList.add("anim", `${this.#target}_trail`);
-      fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
-      fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV)+"px";
-      if(this.#particle !== "self"){
-        fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV-this.#w/3)+"px";
-        fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV-this.#h/3)+"px";
-      }
-      fy.style.zIndex = "0";
-      document.body.appendChild(fy);
-
-      setTimeout(function () {
-        fy.addEventListener("animationend", fy.parentNode.removeChild(fy));
-      }, 1000);
+      this.#createParticle(randV);
     }
   }
 }
