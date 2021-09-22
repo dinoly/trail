@@ -68,8 +68,9 @@ class Trail {
     var that = this;
     setInterval(function(){
       let pos = that.node.getBoundingClientRect();
-      that.node.style.left = (pos.left) + 'px';
-      that.node.style.top = (pos.top) + 'px';
+      // console.log(pos)
+      that.node.style.left = (pos.left + pos.width) + 'px';
+      that.node.style.top = (pos.top + pos.height) + 'px';
       that.#trails ? that.#createParticles() : that.#createParticle();
     }, 100)
   }
