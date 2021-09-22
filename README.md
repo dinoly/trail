@@ -10,9 +10,11 @@ Trail, Generates a trail behind an Html element.
 
 ## Content Outline
 - [Introduction](#introduction)
-- [Sample Example](#sample-example)
+- [Sample code](#sample-code)
 - [Arguments](#arguments)
 - [Methods](#methods)
+- [Images](#images)
+- [Future improvements](#future-improvements)
 
 ## Introduction
 Place the following `<script>` near the end of your pages, right before the closing `</body>` tag.
@@ -30,7 +32,7 @@ After the above script, make a new trail object and pass in the class of the ele
 </script>
 ```
 
-## Sample example
+## Sample code
 Html
 ```html
 <!-- index.html -->
@@ -171,9 +173,19 @@ Trail.followNode();
 ### activeArea
 make the Html element follow the **Mouse Pointer** when mouse hover the certain element, set with `area: <class-of-area>`
 ```js
-Trail.followNode();
+Trail.activeArea();
 ```
 
-### Experiments
+### Images
 
-[experiment1](./experiment1.png)
+![sample 1](./sample1.png)
+
+### Bugs and Future Improvements
+Bugs
+- Absolute centering the trail for particles.
+
+Improvements
+- Resizing the trail.
+- trail behind multiple elements with one `Trail` object.
+- More Effects and Particles.
+- Support for nested elements.

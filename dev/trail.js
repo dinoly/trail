@@ -1,13 +1,15 @@
-var circle = '.trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}';
-var triangle ='.trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}';
-var square = '.trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
+var circle = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}';
+var triangle ='_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}';
+var square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
 var singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
 
 class Trail {
-  #particle = "";#color = "";#effect = "";#isnode = "";#trails="";#styles="";#area="";
+  #target = "";#particle = "";#color = "";#effect = "";#isnode = "";#trails="";#styles="";#area="";#w="";#h="";
   constructor(props){
-    var target = props.target
-    this.node = document.querySelector('.'+target);
+    this.#target = props.target;
+    this.node = document.querySelector('.'+this.#target);
+    this.#w = window.getComputedStyle(this.node).getPropertyValue('width').replace("px", "")
+    this.#h = window.getComputedStyle(this.node).getPropertyValue('height').replace("px", "")
     this.#isnode = props.isnode === false ? props.isnode : true;
     this.area = props.area;
     this.#color = props.color;
@@ -23,7 +25,7 @@ class Trail {
 
   #setUpStyles(){
     this.node.style.position = 'absolute';
-    this.node.style.transform = `translate(calc(-50% - ${this.margin}), calc(-50% - ${this.margin}))`;
+    this.node.style.transform = `translate(calc(-100% - ${this.margin}), calc(-100% - ${this.margin}))`;
     this.node.style.zIndex = `10000`;
     this.node.style.pointerEvents = "none";
     this.node.style.margin = "0";
@@ -31,21 +33,21 @@ class Trail {
 
   #setUpParticles(){
     if(this.#particle === 'circle'){
-      this.#styles += circle;
+      this.#styles += "." + this.#target + circle;
       if(this.#color){
-        this.#styles += `.trail{background: ${this.#color};color:${this.#color};`
+        this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};`
       }
     }
     else if(this.#particle === 'triangle'){
-      this.#styles += triangle;
+      this.#styles += "." + this.#target + triangle;
       if(this.#color){
-        this.#styles += `.trail{border-bottom:0.25rem solid ${this.#color};color:${this.#color};`
+        this.#styles += "." + this.#target + `_trail{border-bottom:0.25rem solid ${this.#color};color:${this.#color};`
       }
     }
     else if(this.#particle === 'square'){
-      this.#styles += square;
+      this.#styles += "." + this.#target + square;
       if(this.#color){
-        this.#styles += `.trail{background: ${this.#color};color:${this.#color};`
+        this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};`
       }
     }
     let stylesheet = document.createElement('style');
@@ -55,23 +57,19 @@ class Trail {
   }
 
   followMouse(){
-    var w = Number(window.getComputedStyle(this.node).getPropertyValue('width').replace("px", ""));
-    var h = Number(window.getComputedStyle(this.node).getPropertyValue('height').replace("px", ""));
     document.addEventListener("mousemove",(pos) =>{
-      this.node.style.left = (pos.clientX + w/2) + 'px';
-      this.node.style.top = (pos.clientY + h/2) + 'px';
+      this.node.style.left = (pos.clientX + this.#w/100*50) + 'px';
+      this.node.style.top = (pos.clientY + this.#h/100*50) + 'px';
       this.#trails ? this.#createParticles() : this.#createParticle();
     })
   }
 
   followNode(){
     var that = this;
-    var w = Number(window.getComputedStyle(this.node).getPropertyValue('width').replace("px", ""));
-    var h = Number(window.getComputedStyle(this.node).getPropertyValue('height').replace("px", ""));
     setInterval(function(){
       let pos = that.node.getBoundingClientRect();
-      that.node.style.left = (pos.left + w/2) + 'px';
-      that.node.style.top = (pos.top + h/2) + 'px';
+      that.node.style.left = (pos.left + that.#w/100*65) + 'px';
+      that.node.style.top = (pos.top + that.#h/100*65) + 'px';
       that.#trails ? that.#createParticles() : that.#createParticle();
     }, 100)
   }
@@ -82,8 +80,8 @@ class Trail {
       var w = Number(window.getComputedStyle(this.node).getPropertyValue('width').replace("px", ""));
       var h = Number(window.getComputedStyle(this.node).getPropertyValue('height').replace("px", ""));
       _area.addEventListener("mousemove",(pos) =>{
-        this.node.style.left = (pos.clientX + w/2) + 'px';
-        this.node.style.top = (pos.clientY + h/2) + 'px';
+        this.node.style.left = (pos.clientX + w/100*50) + 'px';
+        this.node.style.top = (pos.clientY + h/100*50) + 'px';
         this.#trails ? this.#createParticles() : this.#createParticle();
       })
     })
@@ -120,9 +118,15 @@ class Trail {
     if(this.#particle !== "self"){
       fy.classList.remove(this.target);
     }
-    fy.classList.add("anim", "trail");
+    fy.classList.add("anim", `${this.#target}_trail`);
+    // fy.style.left = this.node.style.left - "20px";
+    // fy.style.top = this.node.style.top - "20px";
     fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
     fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV)+"px";
+    if(this.#particle !== "self"){
+      fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV-this.#w/3)+"px";
+      fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV-this.#h/3)+"px";
+    }
     fy.style.zIndex = "0";
     document.body.appendChild(fy);
 
@@ -141,12 +145,18 @@ class Trail {
       else{
         fy = this.node.cloneNode(false);
       }
+      if(this.#effect === "rotate"){
+        let randA = Math.floor(Math.random()*120+30).toString()+"deg";
+        fy.style.transform += `rotate(${randA})`;
+      }
       if(this.#particle !== "self"){
         fy.classList.remove(this.target);
       }
-      fy.classList.add("anim", "trail");
-      fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
-      fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV)+"px";
+      fy.classList.add("anim", `${this.#target}_trail`);
+      // fy.style.left = this.node.style.left - "20px";
+      // fy.style.top = this.node.style.top - "20px";
+      fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV-this.#w/3)+"px";
+      fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV-this.#h/3)+"px";
       fy.style.zIndex = "0";
       document.body.appendChild(fy);
 
