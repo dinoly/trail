@@ -1,16 +1,21 @@
-var circle = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}';
-var triangle ='_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}';
-var square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
-var singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
+/*!
+  Dinoly v0.3.1 (https://www.npmjs.com/package/@dinoly/trail)
+  Licensed under MIT (https://github.com/dinoly/trail/blob/main/LICENSE)
+*/
+
+var circle:string = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}';
+var triangle:string ='_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}';
+var square:string = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
+var singleT:string = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
 
 class Trail {
-  #target = "";#particle = "";#color = "";#effect = "";#isnode = "";#trails="";#styles="";#area="";#bounds="";
+  #target:string;#particle:string;#color:string;#effect:string;#isnode:boolean;#trails:boolean;#styles:string;#area:string;#bounds:DOMRect;node:HTMLElement;margin:string;tick:number;
   constructor(props){
     this.#target = props.target;
     this.node = document.querySelector('.'+this.#target);
     this.#bounds = this.node.getBoundingClientRect();
     this.#isnode = props.isnode === false ? props.isnode : true;
-    this.area = props.area;
+    this.#area = props.area;
     this.#color = props.color;
     this.margin = props.margin ? props.margin : '0px';
     this.#particle = props.particle ? props.particle : 'self';
@@ -56,7 +61,6 @@ class Trail {
   }
 
   followMouse(){
-    console.log(this.node.getBoundingClientRect().width, this.node.getBoundingClientRect().height)
     document.addEventListener("mousemove",(pos) =>{
       this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
       this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
@@ -65,7 +69,7 @@ class Trail {
   }
 
   followNode(){
-    var that = this;
+    let that = this;
     setInterval(function(){
       let pos = that.node.getBoundingClientRect();
       that.node.style.left = (pos.left + that.#bounds.width) + 'px';
@@ -75,9 +79,9 @@ class Trail {
   }
 
   activeArea(){
-    let _area = document.querySelector('.'+this.area);
+    let _area = document.querySelector('.'+this.#area);
     _area.addEventListener('mouseover', ()=>{
-      _area.addEventListener("mousemove",(pos) =>{
+      _area.addEventListener("mousemove",(pos:MouseEvent) =>{
         this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
         this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
         this.#trails ? this.#createParticles() : this.#createParticle();
@@ -108,7 +112,7 @@ class Trail {
       fy.style.transform += `rotate(${randA})`;
     }
     if(this.#particle !== "self"){
-      fy.classList.remove(this.target);
+      fy.classList.remove(this.#target);
     }
     fy.classList.add("anim", `${this.#target}_trail`);
     fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
