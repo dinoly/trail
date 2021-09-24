@@ -8,11 +8,26 @@ var triangle:string ='_trail{width:0;height:0;background-color:transparent;borde
 var square:string = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
 var singleT:string = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
 
+interface Trail{
+  target: string;
+  particle?: string;
+  color?: string;
+  effect?: string;
+  isnode?: boolean;
+  trails?: boolean;
+  styles: string;
+  area?: string;
+  bounds:DOMRect;
+  node:HTMLElement;
+  margin?: string;
+  tick?: number;
+}
+
 class Trail {
-  #target:string;#particle:string;#color:string;#effect:string;#isnode:boolean;#trails:boolean;#styles:string;#area:string;#bounds:DOMRect;node:HTMLElement;margin:string;tick:number;
-  constructor(props){
+  #target:string;node:HTMLElement;#particle?:string;#color?:string;#effect?:string;#isnode?:boolean;#trails?:boolean;#styles:string;#area?:string;#bounds:DOMRect;margin?:string;tick?:number;
+  constructor(props:Trail){
     this.#target = props.target;
-    this.node = document.querySelector('.'+this.#target);
+    this.node = document.querySelector('.'+this.#target)!;
     this.#bounds = this.node.getBoundingClientRect();
     this.#isnode = props.isnode === false ? props.isnode : true;
     this.#area = props.area;
@@ -55,7 +70,7 @@ class Trail {
       }
     }
     let stylesheet = document.createElement('style');
-    stylesheet.type = 'text/css';
+    // stylesheet.type = 'text/css';
     stylesheet.innerHTML = this.#styles;
     document.head.appendChild(stylesheet);
   }
@@ -79,28 +94,28 @@ class Trail {
   }
 
   activeArea(){
-    let _area = document.querySelector('.'+this.#area);
-    _area.addEventListener('mouseover', ()=>{
-      _area.addEventListener("mousemove",(pos:MouseEvent) =>{
-        this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
-        this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
-        this.#trails ? this.#createParticles() : this.#createParticle();
+    let _area = document.querySelector('.'+this.#area)!;
+      _area.addEventListener('mouseover', ()=>{
+          _area.addEventListener("mousemove",((pos:MouseEvent) =>{
+            this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
+            this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
+            this.#trails ? this.#createParticles() : this.#createParticle();
+          }) as EventListener);
       })
-    })
 
-    _area.addEventListener('mouseout', ()=>{
-      _area.removeEventListener("mousemove",()=>{})
-    })
+      _area.addEventListener('mouseout', ()=>{
+          _area.removeEventListener("mousemove",()=>{});
+      })
   }
 
   #createParticle(rand=0){
-    let randV
+    let randV:number;
     if(this.#effect === "spread"){
       randV = Math.floor(Math.random()*12-6);
     }else{
       randV = rand;
     }
-    let fy;
+    let fy:any;
     if(this.#isnode === false){
       fy = this.node.cloneNode(true);
     }

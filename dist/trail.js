@@ -1,3 +1,4 @@
+"use strict";
 /*!
   Dinoly v0.3.1 (https://www.npmjs.com/package/@dinoly/trail)
   Licensed under MIT (https://github.com/dinoly/trail/blob/main/LICENSE)
@@ -64,11 +65,11 @@ class Trail {
     activeArea() {
         let _area = document.querySelector('.' + __classPrivateFieldGet(this, _Trail_area, "f"));
         _area.addEventListener('mouseover', () => {
-            _area.addEventListener("mousemove", (pos) => {
+            _area.addEventListener("mousemove", ((pos) => {
                 this.node.style.left = (pos.clientX + __classPrivateFieldGet(this, _Trail_bounds, "f").width / 2) + 'px';
                 this.node.style.top = (pos.clientY + __classPrivateFieldGet(this, _Trail_bounds, "f").height / 2) + 'px';
                 __classPrivateFieldGet(this, _Trail_trails, "f") ? __classPrivateFieldGet(this, _Trail_instances, "m", _Trail_createParticles).call(this) : __classPrivateFieldGet(this, _Trail_instances, "m", _Trail_createParticle).call(this);
-            });
+            }));
         });
         _area.addEventListener('mouseout', () => {
             _area.removeEventListener("mousemove", () => { });
@@ -101,7 +102,7 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
         }
     }
     let stylesheet = document.createElement('style');
-    stylesheet.type = 'text/css';
+    // stylesheet.type = 'text/css';
     stylesheet.innerHTML = __classPrivateFieldGet(this, _Trail_styles, "f");
     document.head.appendChild(stylesheet);
 }, _Trail_createParticle = function _Trail_createParticle(rand = 0) {
@@ -144,3 +145,4 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
         __classPrivateFieldGet(this, _Trail_instances, "m", _Trail_createParticle).call(this, randV);
     }
 };
+//# sourceMappingURL=trail.js.map
