@@ -15,10 +15,11 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _Trail_instances, _Trail_target, _Trail_particle, _Trail_color, _Trail_effect, _Trail_isnode, _Trail_trails, _Trail_styles, _Trail_area, _Trail_bounds, _Trail_setUpStyles, _Trail_setUpParticles, _Trail_createParticle, _Trail_createParticles;
-var circle = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}';
-var triangle = '_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}';
-var square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
-var singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
+const circle = "_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}";
+const triangle = "_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}";
+const square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
+const singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class Trail {
     constructor(props) {
         _Trail_instances.add(this);
@@ -54,16 +55,15 @@ class Trail {
         });
     }
     followNode() {
-        let that = this;
         setInterval(function () {
-            let pos = that.node.getBoundingClientRect();
-            that.node.style.left = (pos.left + __classPrivateFieldGet(that, _Trail_bounds, "f").width) + 'px';
-            that.node.style.top = (pos.top + __classPrivateFieldGet(that, _Trail_bounds, "f").height) + 'px';
-            __classPrivateFieldGet(that, _Trail_trails, "f") ? __classPrivateFieldGet(that, _Trail_instances, "m", _Trail_createParticles).call(that) : __classPrivateFieldGet(that, _Trail_instances, "m", _Trail_createParticle).call(that);
+            const pos = this.node.getBoundingClientRect();
+            this.node.style.left = (pos.left + __classPrivateFieldGet(this, _Trail_bounds, "f").width) + 'px';
+            this.node.style.top = (pos.top + __classPrivateFieldGet(this, _Trail_bounds, "f").height) + 'px';
+            __classPrivateFieldGet(this, _Trail_trails, "f") ? __classPrivateFieldGet(this, _Trail_instances, "m", _Trail_createParticles).call(this) : __classPrivateFieldGet(this, _Trail_instances, "m", _Trail_createParticle).call(this);
         }, 100);
     }
     activeArea() {
-        let _area = document.querySelector('.' + __classPrivateFieldGet(this, _Trail_area, "f"));
+        const _area = document.querySelector('.' + __classPrivateFieldGet(this, _Trail_area, "f"));
         _area.addEventListener('mouseover', () => {
             _area.addEventListener("mousemove", ((pos) => {
                 this.node.style.left = (pos.clientX + __classPrivateFieldGet(this, _Trail_bounds, "f").width / 2) + 'px';
@@ -101,7 +101,7 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
             __classPrivateFieldSet(this, _Trail_styles, __classPrivateFieldGet(this, _Trail_styles, "f") + ("." + __classPrivateFieldGet(this, _Trail_target, "f") + `_trail{background: ${__classPrivateFieldGet(this, _Trail_color, "f")};color:${__classPrivateFieldGet(this, _Trail_color, "f")};`), "f");
         }
     }
-    let stylesheet = document.createElement('style');
+    const stylesheet = document.createElement('style');
     // stylesheet.type = 'text/css';
     stylesheet.innerHTML = __classPrivateFieldGet(this, _Trail_styles, "f");
     document.head.appendChild(stylesheet);
@@ -121,7 +121,7 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
         fy = this.node.cloneNode(false);
     }
     if (__classPrivateFieldGet(this, _Trail_effect, "f") === "rotate") {
-        let randA = Math.floor(Math.random() * 120 + 30).toString() + "deg";
+        const randA = Math.floor(Math.random() * 120 + 30).toString() + "deg";
         fy.style.transform += `rotate(${randA})`;
     }
     if (__classPrivateFieldGet(this, _Trail_particle, "f") !== "self") {
@@ -141,7 +141,7 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
     }, 1000);
 }, _Trail_createParticles = function _Trail_createParticles() {
     for (let i = 0; i < 2; i++) {
-        let randV = Math.floor(Math.random() * 12 - 6);
+        const randV = Math.floor(Math.random() * 12 - 6);
         __classPrivateFieldGet(this, _Trail_instances, "m", _Trail_createParticle).call(this, randV);
     }
 };

@@ -30,19 +30,18 @@
     Sorry, your browser does not support inline SVG.
   </svg>
   <!-- <script src="../dev/shapes.js"></script> -->
-  <!-- <script src="../dev/trail.js"></script> -->
-  <script src="../trail.min.js"></script>
+  <script src="../dist/trail.js"></script>
+  <!-- <script src="../trail.min.js"></script> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.3.0/trail.min.js" crossorigin="anonymous"></script> -->
   <script>
-    // NOTE:NODE EXAMPLE
     const move = new Trail({
       target: "circle",
       // particle: "square",
-      // color: "lightblue",
-      isnode: false,
-      // effect: "spread",
+      color: "lightblue",
+      // isnode: false,
+      effect: "rotate",
       // area: "div"
-      // trails: true
+      trails: true
     })
     move.followMouse();
     // move.activeArea();

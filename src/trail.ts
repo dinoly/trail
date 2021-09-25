@@ -3,12 +3,12 @@
   Licensed under MIT (https://github.com/dinoly/trail/blob/main/LICENSE)
 */
 
-var circle:string = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}';
-var triangle:string ='_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}';
-var square:string = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
-var singleT:string = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
+const circle = "_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}";
+const triangle ="_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}";
+const square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
+const singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
 
-interface Trail{
+interface itrail{
   target: string;
   particle?: string;
   color?: string;
@@ -23,9 +23,10 @@ interface Trail{
   tick?: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class Trail {
   #target:string;node:HTMLElement;#particle?:string;#color?:string;#effect?:string;#isnode?:boolean;#trails?:boolean;#styles:string;#area?:string;#bounds:DOMRect;margin?:string;tick?:number;
-  constructor(props:Trail){
+  constructor(props:itrail){
     this.#target = props.target;
     this.node = document.querySelector('.'+this.#target)!;
     this.#bounds = this.node.getBoundingClientRect();
@@ -69,7 +70,7 @@ class Trail {
         this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};`
       }
     }
-    let stylesheet = document.createElement('style');
+    const stylesheet = document.createElement('style');
     // stylesheet.type = 'text/css';
     stylesheet.innerHTML = this.#styles;
     document.head.appendChild(stylesheet);
@@ -84,17 +85,16 @@ class Trail {
   }
 
   followNode(){
-    let that = this;
-    setInterval(function(){
-      let pos = that.node.getBoundingClientRect();
-      that.node.style.left = (pos.left + that.#bounds.width) + 'px';
-      that.node.style.top = (pos.top + that.#bounds.height) + 'px';
-      that.#trails ? that.#createParticles() : that.#createParticle();
+    setInterval(function(this:any){
+      const pos = this.node.getBoundingClientRect();
+      this.node.style.left = (pos.left + this.#bounds.width) + 'px';
+      this.node.style.top = (pos.top + this.#bounds.height) + 'px';
+      this.#trails ? this.#createParticles() : this.#createParticle();
     }, 100)
   }
 
   activeArea(){
-    let _area = document.querySelector('.'+this.#area)!;
+    const _area = document.querySelector('.'+this.#area)!;
       _area.addEventListener('mouseover', ()=>{
           _area.addEventListener("mousemove",((pos:MouseEvent) =>{
             this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
@@ -123,7 +123,7 @@ class Trail {
       fy = this.node.cloneNode(false);
     }
     if(this.#effect === "rotate"){
-      let randA = Math.floor(Math.random()*120+30).toString()+"deg";
+      const randA = Math.floor(Math.random()*120+30).toString()+"deg";
       fy.style.transform += `rotate(${randA})`;
     }
     if(this.#particle !== "self"){
@@ -146,7 +146,7 @@ class Trail {
 
   #createParticles(){
     for(let i=0;i<2;i++){
-      let randV = Math.floor(Math.random()*12-6);
+      const randV = Math.floor(Math.random()*12-6);
       this.#createParticle(randV);
     }
   }

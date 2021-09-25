@@ -5,9 +5,10 @@
   "main": "trail.min.js",
   "scripts": {
     "test": "jest",
-    "tsc:c": "tsc",
-    "tsc:w": "tsc -w",
-    "check-content": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
+    "style:all": "tsc && npm run style:lint",
+    "style:watch": "tsc -w",
+    "style:lint": "eslint src/**/*.ts",
+    "npm:content": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
   },
   "repository": {
     "type": "git",

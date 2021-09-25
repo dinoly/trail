@@ -183,9 +183,9 @@ Trail.activeArea();
 ![active area](./activeArea.gif)
 
 ### Bugs and Future Improvements
-Bugs
+Bugs :bug:
 - Text offset.
-- Absolute center the trail of particles.
+- Centering the trail for particles.
 
 Improvements
 - Resizing the trail.
