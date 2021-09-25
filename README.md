@@ -13,13 +13,13 @@ Trail, Generates a trail behind an Html element.
 - [Arguments](#arguments)
 - [Methods](#methods)
 - [Gifs](#gifs)
-- [Bugs and Future Improvements](#bugs-and-future-tmprovements)
+- [Bugs and Future Improvements](#bugs-and-future-improvements)
 
 ## Introduction
 Place the following `<script>` near the end of your pages, right before the closing `</body>` tag.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.3.0/trail.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.3.1/trail.min.js" crossorigin="anonymous"></script>
 ```
 After the above script, make a new trail object and pass in the class of the element you want to create a trail behind.
 ```html
@@ -45,7 +45,7 @@ Html
 
 <body>
   <div class="circle"></div>
-  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.3.0/trail.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@dinoly/trail@0.3.1/trail.min.js" crossorigin="anonymous"></script>
   <script>
     const move = new Trail({
       target: "circle",
@@ -148,10 +148,10 @@ effect: "spread",
   + "rotate"
 </details>
 
-### trails
+### trails :wrench:
 If `true` will create trails with multiple particles, currently `2`.
 
-Note: this may create a lag, use the `effect: "spread"` which will create similar effect with one particle.
+Note: if this creates a lag, use the `effect: "spread"` which will create similar effect with one particle.
 ```js
 trails: true
 ```
@@ -183,9 +183,9 @@ Trail.activeArea();
 ![active area](./activeArea.gif)
 
 ### Bugs and Future Improvements
-Bugs
+Bugs :bug:
 - Text offset.
-- Absolute center the trail of particles.
+- Centering the trail for particles.
 
 Improvements
 - Resizing the trail.

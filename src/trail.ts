@@ -1,16 +1,37 @@
-var circle = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}';
-var triangle ='_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}';
-var square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
-var singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
+/*!
+  Dinoly v0.3.1 (https://www.npmjs.com/package/@dinoly/trail)
+  Licensed under MIT (https://github.com/dinoly/trail/blob/main/LICENSE)
+*/
 
+const circle = "_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}";
+const triangle ="_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}";
+const square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
+const singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
+
+interface itrail{
+  target: string;
+  particle?: string;
+  color?: string;
+  effect?: string;
+  isnode?: boolean;
+  trails?: boolean;
+  styles: string;
+  area?: string;
+  bounds:DOMRect;
+  node:HTMLElement;
+  margin?: string;
+  tick?: number;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class Trail {
-  #target = "";#particle = "";#color = "";#effect = "";#isnode = "";#trails="";#styles="";#area="";#bounds="";
-  constructor(props){
+  #target:string;node:HTMLElement;#particle?:string;#color?:string;#effect?:string;#isnode?:boolean;#trails?:boolean;#styles:string;#area?:string;#bounds:DOMRect;margin?:string;tick?:number;
+  constructor(props:itrail){
     this.#target = props.target;
-    this.node = document.querySelector('.'+this.#target);
+    this.node = document.querySelector('.'+this.#target)!;
     this.#bounds = this.node.getBoundingClientRect();
     this.#isnode = props.isnode === false ? props.isnode : true;
-    this.area = props.area;
+    this.#area = props.area;
     this.#color = props.color;
     this.margin = props.margin ? props.margin : '0px';
     this.#particle = props.particle ? props.particle : 'self';
@@ -49,14 +70,13 @@ class Trail {
         this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};`
       }
     }
-    let stylesheet = document.createElement('style');
-    stylesheet.type = 'text/css';
+    const stylesheet = document.createElement('style');
+    // stylesheet.type = 'text/css';
     stylesheet.innerHTML = this.#styles;
     document.head.appendChild(stylesheet);
   }
 
   followMouse(){
-    console.log(this.node.getBoundingClientRect().width, this.node.getBoundingClientRect().height)
     document.addEventListener("mousemove",(pos) =>{
       this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
       this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
@@ -65,9 +85,9 @@ class Trail {
   }
 
   followNode(){
-    var that = this;
+    const that = this; // eslint-disable-line @typescript-eslint/no-this-alias
     setInterval(function(){
-      let pos = that.node.getBoundingClientRect();
+      const pos = that.node.getBoundingClientRect();
       that.node.style.left = (pos.left + that.#bounds.width) + 'px';
       that.node.style.top = (pos.top + that.#bounds.height) + 'px';
       that.#trails ? that.#createParticles() : that.#createParticle();
@@ -75,28 +95,28 @@ class Trail {
   }
 
   activeArea(){
-    let _area = document.querySelector('.'+this.area);
-    _area.addEventListener('mouseover', ()=>{
-      _area.addEventListener("mousemove",(pos) =>{
-        this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
-        this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
-        this.#trails ? this.#createParticles() : this.#createParticle();
+    const _area = document.querySelector('.'+this.#area)!;
+      _area.addEventListener('mouseover', ()=>{
+          _area.addEventListener("mousemove",((pos:MouseEvent) =>{
+            this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
+            this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
+            this.#trails ? this.#createParticles() : this.#createParticle();
+          }) as EventListener);
       })
-    })
 
-    _area.addEventListener('mouseout', ()=>{
-      _area.removeEventListener("mousemove",()=>{})
-    })
+      _area.addEventListener('mouseout', ()=>{
+          _area.removeEventListener("mousemove",()=>{});
+      })
   }
 
   #createParticle(rand=0){
-    let randV
+    let randV:number;
     if(this.#effect === "spread"){
       randV = Math.floor(Math.random()*12-6);
     }else{
       randV = rand;
     }
-    let fy;
+    let fy:any;
     if(this.#isnode === false){
       fy = this.node.cloneNode(true);
     }
@@ -104,11 +124,11 @@ class Trail {
       fy = this.node.cloneNode(false);
     }
     if(this.#effect === "rotate"){
-      let randA = Math.floor(Math.random()*120+30).toString()+"deg";
+      const randA = Math.floor(Math.random()*120+30).toString()+"deg";
       fy.style.transform += `rotate(${randA})`;
     }
     if(this.#particle !== "self"){
-      fy.classList.remove(this.target);
+      fy.classList.remove(this.#target);
     }
     fy.classList.add("anim", `${this.#target}_trail`);
     fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
@@ -127,7 +147,7 @@ class Trail {
 
   #createParticles(){
     for(let i=0;i<2;i++){
-      let randV = Math.floor(Math.random()*12-6);
+      const randV = Math.floor(Math.random()*12-6);
       this.#createParticle(randV);
     }
   }
