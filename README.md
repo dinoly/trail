@@ -1,5 +1,6 @@
 # Trail
 [![NPM version](https://img.shields.io/npm/v/@dinoly/trail/latest?color=blue&label=&logo=npm)](https://www.npmjs.com/package/@dinoly/trail)
+[![Github action](https://img.shields.io/github/workflow/status/dinoly/trail/Quality?label=CI&logo=github)](https://github.com/dinoly/trail/actions/workflows/main.yml)
 
 [![Milestones](https://img.shields.io/github/milestones/progress/dinoly/trail/1?style=social)](https://github.com/dinoly/trail/milestone/1)
 
@@ -185,7 +186,7 @@ Trail.activeArea();
 ### Bugs and Future Improvements
 Bugs :bug:
 - Text offset.
-- Centering the trail for particles.
+- Offset of the trail particles.
 
 Improvements
 - Resizing the trail.
