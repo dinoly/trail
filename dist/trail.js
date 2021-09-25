@@ -55,11 +55,12 @@ class Trail {
         });
     }
     followNode() {
+        const that = this; // eslint-disable-line @typescript-eslint/no-this-alias
         setInterval(function () {
-            const pos = this.node.getBoundingClientRect();
-            this.node.style.left = (pos.left + __classPrivateFieldGet(this, _Trail_bounds, "f").width) + 'px';
-            this.node.style.top = (pos.top + __classPrivateFieldGet(this, _Trail_bounds, "f").height) + 'px';
-            __classPrivateFieldGet(this, _Trail_trails, "f") ? __classPrivateFieldGet(this, _Trail_instances, "m", _Trail_createParticles).call(this) : __classPrivateFieldGet(this, _Trail_instances, "m", _Trail_createParticle).call(this);
+            const pos = that.node.getBoundingClientRect();
+            that.node.style.left = (pos.left + __classPrivateFieldGet(that, _Trail_bounds, "f").width) + 'px';
+            that.node.style.top = (pos.top + __classPrivateFieldGet(that, _Trail_bounds, "f").height) + 'px';
+            __classPrivateFieldGet(that, _Trail_trails, "f") ? __classPrivateFieldGet(that, _Trail_instances, "m", _Trail_createParticles).call(that) : __classPrivateFieldGet(that, _Trail_instances, "m", _Trail_createParticle).call(that);
         }, 100);
     }
     activeArea() {

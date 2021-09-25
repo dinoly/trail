@@ -85,11 +85,12 @@ class Trail {
   }
 
   followNode(){
-    setInterval(function(this:any){
-      const pos = this.node.getBoundingClientRect();
-      this.node.style.left = (pos.left + this.#bounds.width) + 'px';
-      this.node.style.top = (pos.top + this.#bounds.height) + 'px';
-      this.#trails ? this.#createParticles() : this.#createParticle();
+    const that = this; // eslint-disable-line @typescript-eslint/no-this-alias
+    setInterval(function(){
+      const pos = that.node.getBoundingClientRect();
+      that.node.style.left = (pos.left + that.#bounds.width) + 'px';
+      that.node.style.top = (pos.top + that.#bounds.height) + 'px';
+      that.#trails ? that.#createParticles() : that.#createParticle();
     }, 100)
   }
 

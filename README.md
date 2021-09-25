@@ -148,10 +148,10 @@ effect: "spread",
   + "rotate"
 </details>
 
-### trails
+### trails :wrench:
 If `true` will create trails with multiple particles, currently `2`.
 
-Note: this may create a lag, use the `effect: "spread"` which will create similar effect with one particle.
+Note: if this creates a lag, use the `effect: "spread"` which will create similar effect with one particle.
 ```js
 trails: true
 ```
