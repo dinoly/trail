@@ -4,10 +4,10 @@
   "description": "Generate a trail behind an element.",
   "main": "trail.min.js",
   "scripts": {
-    "test": "jest",
-    "style:all": "tsc && npm run style:lint",
-    "style:watch": "tsc -w",
-    "style:lint": "eslint src/**/*.ts",
+    "test": "mocha",
+    "ts:all": "tsc && npm run ts:lint",
+    "ts:watch": "tsc -w",
+    "ts:lint": "eslint src/**/*.ts",
     "npm:content": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
   },
   "repository": {
@@ -30,7 +30,9 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
+    "chai": "^4.3.4",
     "eslint": "^7.32.0",
+    "mocha": "^9.1.2",
     "typescript": "^4.4.3"
   }
 }

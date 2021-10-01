@@ -114,31 +114,33 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
     else {
         randV = rand;
     }
-    let fy;
+    let newP;
     if (__classPrivateFieldGet(this, _Trail_isnode, "f") === false) {
-        fy = this.node.cloneNode(true);
+        newP = this.node.cloneNode(true);
     }
     else {
-        fy = this.node.cloneNode(false);
+        newP = this.node.cloneNode(false);
     }
     if (__classPrivateFieldGet(this, _Trail_effect, "f") === "rotate") {
         const randA = Math.floor(Math.random() * 120 + 30).toString() + "deg";
-        fy.style.transform += `rotate(${randA})`;
+        newP.style.transform += `rotate(${randA})`;
     }
     if (__classPrivateFieldGet(this, _Trail_particle, "f") !== "self") {
-        fy.classList.remove(__classPrivateFieldGet(this, _Trail_target, "f"));
+        newP.classList.remove(__classPrivateFieldGet(this, _Trail_target, "f"));
     }
-    fy.classList.add("anim", `${__classPrivateFieldGet(this, _Trail_target, "f")}_trail`);
-    fy.style.left = (Number(this.node.style.left.replace("px", "")) + randV) + "px";
-    fy.style.top = (Number(this.node.style.top.replace("px", "")) + randV) + "px";
+    newP.classList.add("anim", `${__classPrivateFieldGet(this, _Trail_target, "f")}_trail`);
     if (__classPrivateFieldGet(this, _Trail_particle, "f") !== "self") {
-        fy.style.left = (Number(this.node.style.left.replace("px", "")) + randV - __classPrivateFieldGet(this, _Trail_bounds, "f").width / 3) + "px";
-        fy.style.top = (Number(this.node.style.top.replace("px", "")) + randV - __classPrivateFieldGet(this, _Trail_bounds, "f").height / 3) + "px";
+        newP.style.left = (Number(this.node.style.left.replace("px", "")) + randV - __classPrivateFieldGet(this, _Trail_bounds, "f").width / 2 + 2.4) + "px";
+        newP.style.top = (Number(this.node.style.top.replace("px", "")) + randV - __classPrivateFieldGet(this, _Trail_bounds, "f").height / 2 + 2.4) + "px";
     }
-    fy.style.zIndex = "0";
-    document.body.appendChild(fy);
+    else {
+        newP.style.left = (Number(this.node.style.left.replace("px", "")) + randV) + "px";
+        newP.style.top = (Number(this.node.style.top.replace("px", "")) + randV) + "px";
+    }
+    newP.style.zIndex = "0";
+    document.body.appendChild(newP);
     setTimeout(function () {
-        fy.addEventListener("animationend", fy.parentNode.removeChild(fy));
+        newP.addEventListener("animationend", newP.parentNode.removeChild(newP));
     }, 1000);
 }, _Trail_createParticles = function _Trail_createParticles() {
     for (let i = 0; i < 2; i++) {

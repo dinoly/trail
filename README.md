@@ -9,6 +9,8 @@
 
 Trail, Generates a trail behind an Html element.
 
+look into the [Change log](./CHANGELOG.md) for features and breaking changes
+
 ## Content Outline
 - [Introduction](#introduction)
 - [Sample code](#sample-code)
@@ -117,14 +119,15 @@ Note: if this creates a lag, use the `effect: "spread"` which will create simila
 | **activeArea** | make the Html element follow the **Mouse Pointer** when mouse hover a certain element, set with `area: <class-of-area>` | `Trail.activeArea();` |
 
 ### Gifs
-<img src="./followMouse.gif" alt="follow mouse" width="250"/>
-<img src="./followNode.gif" alt="follow mouse" width="250"/>
-<img src="./activeArea.gif" alt="follow mouse" width="250"/>
+<div style="display:flex;flex-direction:row;width:400px;">
+  <img src="./followMouse.gif" alt="follow mouse" width="250px"/>
+  <img src="./followNode.gif" alt="follow mouse" width="250px"/>
+  <img src="./activeArea.gif" alt="follow mouse" width="250"/>
+</div>
 
 ### Bugs and Future Improvements
 Bugs :bug:
 - Text offset.
-- Offset of the trail particles.
 
 Improvements
 - Resizing the trail.

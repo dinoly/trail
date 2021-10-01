@@ -43,7 +43,7 @@ class Trail {
     this.#setUpParticles();
   }
 
-  #setUpStyles(){
+  #setUpStyles():void{
     this.node.style.position = 'absolute';
     this.node.style.transform = `translate(calc(-100% - ${this.margin}), calc(-100% - ${this.margin}))`;
     this.node.style.zIndex = `10000`;
@@ -51,7 +51,7 @@ class Trail {
     this.node.style.margin = "0";
   }
 
-  #setUpParticles(){
+  #setUpParticles():void{
     if(this.#particle === 'circle'){
       this.#styles += "." + this.#target + circle;
       if(this.#color){
@@ -76,7 +76,7 @@ class Trail {
     document.head.appendChild(stylesheet);
   }
 
-  followMouse(){
+  followMouse():void{
     document.addEventListener("mousemove",(pos) =>{
       this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
       this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
@@ -84,7 +84,7 @@ class Trail {
     })
   }
 
-  followNode(){
+  followNode():void{
     const that = this; // eslint-disable-line @typescript-eslint/no-this-alias
     setInterval(function(){
       const pos = that.node.getBoundingClientRect();
@@ -94,7 +94,7 @@ class Trail {
     }, 100)
   }
 
-  activeArea(){
+  activeArea():void{
     const _area = document.querySelector('.'+this.#area)!;
       _area.addEventListener('mouseover', ()=>{
           _area.addEventListener("mousemove",((pos:MouseEvent) =>{
@@ -109,43 +109,45 @@ class Trail {
       })
   }
 
-  #createParticle(rand=0){
+  #createParticle(rand=0):void{
     let randV:number;
     if(this.#effect === "spread"){
       randV = Math.floor(Math.random()*12-6);
     }else{
       randV = rand;
     }
-    let fy:any;
+    let newP:any;
     if(this.#isnode === false){
-      fy = this.node.cloneNode(true);
+      newP = this.node.cloneNode(true);
     }
     else{
-      fy = this.node.cloneNode(false);
+      newP = this.node.cloneNode(false);
     }
     if(this.#effect === "rotate"){
       const randA = Math.floor(Math.random()*120+30).toString()+"deg";
-      fy.style.transform += `rotate(${randA})`;
+      newP.style.transform += `rotate(${randA})`;
     }
     if(this.#particle !== "self"){
-      fy.classList.remove(this.#target);
+      newP.classList.remove(this.#target);
     }
-    fy.classList.add("anim", `${this.#target}_trail`);
-    fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
-    fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV)+"px";
+    newP.classList.add("anim", `${this.#target}_trail`);
     if(this.#particle !== "self"){
-      fy.style.left = (Number(this.node.style.left.replace("px", ""))+randV-this.#bounds.width/3)+"px";
-      fy.style.top = (Number(this.node.style.top.replace("px", ""))+randV-this.#bounds.height/3)+"px";
+      newP.style.left = (Number(this.node.style.left.replace("px", ""))+randV - this.#bounds.width/2 + 2.4)+"px";
+      newP.style.top = (Number(this.node.style.top.replace("px", ""))+randV - this.#bounds.height/2 + 2.4)+"px";
     }
-    fy.style.zIndex = "0";
-    document.body.appendChild(fy);
+    else{
+      newP.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
+      newP.style.top = (Number(this.node.style.top.replace("px", ""))+randV)+"px";
+    }
+    newP.style.zIndex = "0";
+    document.body.appendChild(newP);
 
     setTimeout(function () {
-      fy.addEventListener("animationend", fy.parentNode.removeChild(fy));
+      newP.addEventListener("animationend", newP.parentNode.removeChild(newP));
     }, 1000);
   }
 
-  #createParticles(){
+  #createParticles():void{
     for(let i=0;i<2;i++){
       const randV = Math.floor(Math.random()*12-6);
       this.#createParticle(randV);
