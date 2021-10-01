@@ -4,10 +4,10 @@
   "description": "Generate a trail behind an element.",
   "main": "trail.min.js",
   "scripts": {
-    "test": "jest",
-    "style:all": "tsc && npm run style:lint",
-    "style:watch": "tsc -w",
-    "style:lint": "eslint src/**/*.ts",
+    "test": "mocha",
+    "ts:all": "tsc && npm run ts:lint",
+    "ts:watch": "tsc -w",
+    "ts:lint": "eslint src/**/*.ts",
     "npm:content": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
   },
   "repository": {
