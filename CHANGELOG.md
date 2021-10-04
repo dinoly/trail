@@ -1,4 +1,8 @@
 # Changelog
+## 0.3.6 (2021-09-04)
+#### Merged pull requests:
+- corrected version in readme [#8](https://github.com/dinoly/trail/pull/8)
+
 ## 0.3.3 (2021-09-04)
 #### Merged pull requests:
 - Fixed styling [#7](https://github.com/dinoly/trail/pull/7)
