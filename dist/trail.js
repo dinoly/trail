@@ -78,7 +78,7 @@ class Trail {
     }
 }
 _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = new WeakMap(), _Trail_effect = new WeakMap(), _Trail_isnode = new WeakMap(), _Trail_trails = new WeakMap(), _Trail_styles = new WeakMap(), _Trail_area = new WeakMap(), _Trail_bounds = new WeakMap(), _Trail_instances = new WeakSet(), _Trail_setUpStyles = function _Trail_setUpStyles() {
-    this.node.style.position = 'absolute';
+    this.node.style.position = 'fixed';
     this.node.style.transform = `translate(calc(-100% - ${this.margin}), calc(-100% - ${this.margin}))`;
     this.node.style.zIndex = `10000`;
     this.node.style.pointerEvents = "none";

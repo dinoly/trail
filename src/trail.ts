@@ -44,7 +44,7 @@ class Trail {
   }
 
   #setUpStyles():void{
-    this.node.style.position = 'absolute';
+    this.node.style.position = 'fixed';
     this.node.style.transform = `translate(calc(-100% - ${this.margin}), calc(-100% - ${this.margin}))`;
     this.node.style.zIndex = `10000`;
     this.node.style.pointerEvents = "none";
