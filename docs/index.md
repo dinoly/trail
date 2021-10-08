@@ -12,6 +12,6 @@ keywords: trail, npm, dinoly
 Trail, Generates a trail behind an Html element.
 
 ### Table of content
-- [Getting Started](./getting-started.md)
-- [Arguments](./arguments.md)
-- [Methods](./methods.md)
+- [Getting Started](getting-started.md)
+- [Arguments](arguments.md)
+- [Methods](methods.md)
