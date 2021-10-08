@@ -1,3 +1,8 @@
+---
+title: Methods
+type: page
+keywords: trail, npm, dinoly
+---
 ## Methods
 ### followMouse
 Make the Html element follow the **Mouse Pointer** with a trail.

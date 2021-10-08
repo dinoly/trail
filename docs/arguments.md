@@ -1,3 +1,8 @@
+---
+title: Arguments
+type: page
+keywords: trail, npm, dinoly, arguments
+---
 ## Arguments
 ```js
 {

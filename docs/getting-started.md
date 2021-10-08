@@ -1,3 +1,8 @@
+---
+title: Getting Started
+type: page
+keywords: trail, npm, dinoly
+---
 ## Getting Started
 Place the following `<script>` near the end of your pages, right before the closing `</body>` tag.
 
