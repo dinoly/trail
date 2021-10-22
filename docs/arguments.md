@@ -29,7 +29,7 @@ area: "example",
 ```
 
 ### particle
-Shape of the particle in trail, default: `self`
+Shape of the particle in trail, default: `self`.
 ```js
 particle: "circle",
 ```
@@ -40,6 +40,11 @@ particle: "circle",
   + "triangle"
   + "square"
 </details>
+
+Additionally one can provide the particle style instead of **pre-defined types** like:
+```js
+particle: "height:.3rem;width:.3rem;background-color:salmon;",
+```
 
 ### color
 Color of the trail, default: `white`

@@ -102,6 +102,12 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
             __classPrivateFieldSet(this, _Trail_styles, __classPrivateFieldGet(this, _Trail_styles, "f") + ("." + __classPrivateFieldGet(this, _Trail_target, "f") + `_trail{background: ${__classPrivateFieldGet(this, _Trail_color, "f")};color:${__classPrivateFieldGet(this, _Trail_color, "f")};`), "f");
         }
     }
+    else {
+        __classPrivateFieldSet(this, _Trail_styles, __classPrivateFieldGet(this, _Trail_styles, "f") + ("." + __classPrivateFieldGet(this, _Trail_target, "f") + `_trail{${__classPrivateFieldGet(this, _Trail_particle, "f")}}`), "f");
+        if (__classPrivateFieldGet(this, _Trail_color, "f")) {
+            __classPrivateFieldSet(this, _Trail_styles, __classPrivateFieldGet(this, _Trail_styles, "f") + ("." + __classPrivateFieldGet(this, _Trail_target, "f") + `_trail{background: ${__classPrivateFieldGet(this, _Trail_color, "f")};color:${__classPrivateFieldGet(this, _Trail_color, "f")};`), "f");
+        }
+    }
     const stylesheet = document.createElement('style');
     // stylesheet.type = 'text/css';
     stylesheet.innerHTML = __classPrivateFieldGet(this, _Trail_styles, "f");
