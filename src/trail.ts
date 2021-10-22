@@ -70,6 +70,12 @@ class Trail {
         this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};`
       }
     }
+    else{
+      this.#styles += "." + this.#target + `_trail{${this.#particle}}`;
+      if(this.#color){
+        this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};`
+      }
+    }
     const stylesheet = document.createElement('style');
     // stylesheet.type = 'text/css';
     stylesheet.innerHTML = this.#styles;
