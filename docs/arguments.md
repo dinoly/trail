@@ -10,6 +10,7 @@ keywords: trail, npm, dinoly, arguments
   area: null,
   particle: "default", // self
   offset: ['default', 'default'], // 0px
+  delay: 50, // in milliseconds
   color: "default", // white
   isnode: true,
   effect: "default", // straight
@@ -50,7 +51,14 @@ particle: "height:.3rem;width:.3rem;background-color:salmon;",
 Offsets the **target and trail** from mouses origin.
 
 ```js
-offset: ['-10px', '10px'], // [OFFSET FROM X AXIS, OFFSET FROM Y AXIS]
+offset: ['-10px', '10px'], // [OFFSET X AXIS, OFFSET Y AXIS]
+```
+
+### Delay
+Delays the particle.
+
+```js
+delay: 1000, // 1 sec
 ```
 
 ### color
@@ -83,7 +91,7 @@ effect: "spread",
   + "rotate"
 </details>
 
-### trails :wrench:
+### trails
 If `true` will create trails with multiple particles, currently `2`.
 
 Note: if this creates a lag, use the `effect: "spread"` which will create similar effect with one particle.

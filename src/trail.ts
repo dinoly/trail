@@ -6,12 +6,12 @@
 const circle = "_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}";
 const triangle ="_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}";
 const square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
-const singleT = '.anim{animation:disappear 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
+const singleT = '.anim{animation:disappear 1s ease-out forwards, grad 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
 
 interface itrail{
   target: string;
   particle?: string;
-  color?: string;
+  color?: string | string[];
   effect?: string;
   isnode?: boolean;
   trails?: boolean;
@@ -19,23 +19,23 @@ interface itrail{
   area?: string;
   bounds:DOMRect;
   node:HTMLElement;
-  offset?: [string, string];
-  tick?: number;
+  offset?: string[];
+  delay?: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class Trail {
-  #target:string;node:HTMLElement;#particle?:string;#color?:string;#effect?:string;#isnode?:boolean;#trails?:boolean;#styles:string;#area?:string;#bounds:DOMRect;#offset:string[];tick?:number;
+  #target:string;node:HTMLElement;#particle:string;#color:string|string[];#effect:string;#isnode:boolean;#trails:boolean;#styles:string;#area?:string;#bounds:DOMRect;#offset:string[];#delay:number;
   constructor(props:itrail){
     this.#target = props.target;
     this.node = document.querySelector('.'+this.#target)!;
     this.#bounds = this.node.getBoundingClientRect();
     this.#isnode = props.isnode === false ? props.isnode : true;
     this.#area = props.area;
-    this.#color = props.color;
+    this.#color = props.color ? props.color : "#000000";
     this.#offset = props.offset ? props.offset : ['0px', '0px'];
     this.#particle = props.particle ? props.particle : 'self';
-    this.tick = props.tick ? props.tick * 1000 : 5000;
+    this.#delay = props.delay ? props.delay : 50;
     this.#styles = props.styles ? props.styles : singleT;
     this.#effect = props.effect ? props.effect : "straight";
     this.#trails = props.trails === true ? props.trails : false;
@@ -54,28 +54,29 @@ class Trail {
   #setUpParticles():void{
     if(this.#particle === 'circle'){
       this.#styles += "." + this.#target + circle;
-      if(this.#color){
-        this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};`
-      }
     }
     else if(this.#particle === 'triangle'){
       this.#styles += "." + this.#target + triangle;
-      if(this.#color){
-        this.#styles += "." + this.#target + `_trail{border-bottom:0.25rem solid ${this.#color};color:${this.#color};`
-      }
     }
     else if(this.#particle === 'square'){
       this.#styles += "." + this.#target + square;
-      if(this.#color){
-        this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};`
-      }
     }
     else{
       this.#styles += "." + this.#target + `_trail{${this.#particle}}`;
-      if(this.#color){
-        this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};`
-      }
     }
+    if(typeof(this.#color) === "string"){
+      console.log("yes")
+      this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};` //this.#particle !== "triangle" ? `_trail{background: ${this.#color};color:${this.#color};` : `_trail{border-color: ${this.#color};color:${this.#color};`;
+    }
+    else{
+      this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};`
+      let grads = this.#color.map((i:any, c:any)=>{
+        let m = 100/this.#color.length;
+        return i * m + `{background-color:${c}}`
+      })
+      this.#styles += `@keyframes grad{${grads}}`
+    }
+
     const stylesheet = document.createElement('style');
     // stylesheet.type = 'text/css';
     stylesheet.innerHTML = this.#styles;
@@ -86,11 +87,11 @@ class Trail {
     document.addEventListener("mousemove",(pos) =>{
       this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
       this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
-      this.#trails ? this.#createParticles() : this.#createParticle();
+      // this.#trails ? this.#createParticles() : this.#createParticle();
     })
     setInterval(() => {
       this.#trails ? this.#createParticles() : this.#createParticle();
-    }, 100)
+    }, this.#delay)
   }
 
   followNode():void{
@@ -99,7 +100,7 @@ class Trail {
       this.node.style.left = (pos.left + this.#bounds.width) + 'px';
       this.node.style.top = (pos.top + this.#bounds.height) + 'px';
       this.#trails ? this.#createParticles() : this.#createParticle();
-    }, 100)
+    }, this.#delay)
   }
 
   activeArea():void{
