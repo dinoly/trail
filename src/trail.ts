@@ -11,7 +11,7 @@ const singleT = '.anim{animation:disappear 1s ease-out forwards, grad 1s ease-ou
 interface itrail{
   target: string;
   particle?: string;
-  color?: string | string[];
+  color?: string | Map<number, string>;
   effect?: string;
   isnode?: boolean;
   trails?: boolean;
@@ -25,14 +25,14 @@ interface itrail{
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class Trail {
-  #target:string;node:HTMLElement;#particle:string;#color:string|string[];#effect:string;#isnode:boolean;#trails:boolean;#styles:string;#area?:string;#bounds:DOMRect;#offset:string[];#delay:number;
+  #target:string;node:HTMLElement;#particle:string;#color:string|Map<number, string>;#effect:string;#isnode:boolean;#trails:boolean;#styles:string;#area?:string;#bounds:DOMRect;#offset:string[];#delay:number;
   constructor(props:itrail){
     this.#target = props.target;
     this.node = document.querySelector('.'+this.#target)!;
     this.#bounds = this.node.getBoundingClientRect();
     this.#isnode = props.isnode === false ? props.isnode : true;
     this.#area = props.area;
-    this.#color = props.color ? props.color : "#000000";
+    this.#color = props.color ? typeof(props.color) === "function"? new Map(props.color) : props.color: "#000000";
     this.#offset = props.offset ? props.offset : ['0px', '0px'];
     this.#particle = props.particle ? props.particle : 'self';
     this.#delay = props.delay ? props.delay : 50;
@@ -65,18 +65,15 @@ class Trail {
       this.#styles += "." + this.#target + `_trail{${this.#particle}}`;
     }
     if(typeof(this.#color) === "string"){
-      console.log("yes")
       this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};` //this.#particle !== "triangle" ? `_trail{background: ${this.#color};color:${this.#color};` : `_trail{border-color: ${this.#color};color:${this.#color};`;
     }
-    else{
-      this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};`
-      let grads = this.#color.map((i:any, c:any)=>{
-        let m = 100/this.#color.length;
-        return i * m + `{background-color:${c}}`
-      })
-      this.#styles += `@keyframes grad{${grads}}`
+    else if(typeof(this.#color) === "object"){
+      let grad = ""
+      this.#color.forEach((value, key):void => {
+        grad += `${value[1]}%{background-color:${value[0]}}`
+      });
+      this.#styles += `@keyframes grad{${grad}}`
     }
-
     const stylesheet = document.createElement('style');
     // stylesheet.type = 'text/css';
     stylesheet.innerHTML = this.#styles;
@@ -87,7 +84,6 @@ class Trail {
     document.addEventListener("mousemove",(pos) =>{
       this.node.style.left = (pos.clientX + this.#bounds.width/2) + 'px';
       this.node.style.top = (pos.clientY + this.#bounds.height/2) + 'px';
-      // this.#trails ? this.#createParticles() : this.#createParticle();
     })
     setInterval(() => {
       this.#trails ? this.#createParticles() : this.#createParticle();
@@ -121,7 +117,6 @@ class Trail {
   }
 
   #createParticle(rand=0):void{
-    // setTimeout(() => {
       let randV:number;
       if(this.#effect === "spread"){
         randV = Math.floor(Math.random()*12-6);
@@ -157,7 +152,6 @@ class Trail {
       setTimeout(function () {
         newP.addEventListener("animationend", newP.parentNode.removeChild(newP));
       }, 1000);
-    // }, 1000);
   }
 
   #createParticles():void{

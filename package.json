@@ -7,7 +7,7 @@
     "test": "mocha",
     "ts:all": "tsc && npm run ts:lint",
     "ts:watch": "tsc -w",
-    "ts:lint": "eslint src/**/*.ts",
+    "ts:lint": "tsc && eslint src/**/*.ts",
     "npm:content": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
   },
   "repository": {
