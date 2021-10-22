@@ -9,6 +9,7 @@ keywords: trail, npm, dinoly, arguments
   target: null,
   area: null,
   particle: "default", // self
+  offset: ['default', 'default'], // 0px
   color: "default", // white
   isnode: true,
   effect: "default", // straight
@@ -25,7 +26,7 @@ target: "example",
 ### area
 Is the class of the element inside which the trail will be generated.
 ```js
-area: "example",
+area: "example-area",
 ```
 
 ### particle
@@ -44,6 +45,12 @@ particle: "circle",
 Additionally one can provide the particle style instead of **pre-defined types** like:
 ```js
 particle: "height:.3rem;width:.3rem;background-color:salmon;",
+```
+### Offset
+Offsets the **target and trail** from mouses origin.
+
+```js
+offset: ['-10px', '10px'], // [OFFSET FROM X AXIS, OFFSET FROM Y AXIS]
 ```
 
 ### color
