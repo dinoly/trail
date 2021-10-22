@@ -66,6 +66,11 @@ Color of the trail, default: `white`
 ```js
 color: "#ff0000", // or try "lightblue"
 ```
+Trail can be gradient by passing **colors** as array of arrays<number, string>
+```js
+color: [[0,"orange"], [30,"white"], [50, "green"]],
+```
+**Number** represents the percentage of animation and **String** represents the color.
 
 ### isnode
 Set `false` if you want a trail for a **Text** or **Svg**, default: `true`
