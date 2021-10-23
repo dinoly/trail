@@ -117,7 +117,7 @@ class Trail {
   }
 
   #createParticle(rand={"x": 0,"y": 0}):void{
-      let randV:{"x": number, "y": number} = rand;
+      const randV:{"x": number, "y": number} = rand;
       if(this.#effect === "spread"){
         randV.x = Math.floor(Math.random()*12-6);
         randV.y = Math.floor(Math.random()*12-6);

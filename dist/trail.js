@@ -116,7 +116,7 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
     stylesheet.innerHTML = __classPrivateFieldGet(this, _Trail_styles, "f");
     document.head.appendChild(stylesheet);
 }, _Trail_createParticle = function _Trail_createParticle(rand = { "x": 0, "y": 0 }) {
-    let randV = rand;
+    const randV = rand;
     if (__classPrivateFieldGet(this, _Trail_effect, "f") === "spread") {
         randV.x = Math.floor(Math.random() * 12 - 6);
         randV.y = Math.floor(Math.random() * 12 - 6);
