@@ -3,9 +3,9 @@
   Licensed under MIT (https://github.com/dinoly/trail/blob/main/LICENSE)
 */
 
-const circle = "_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}";
-const triangle ="_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}";
-const square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
+const circle = "_trail{background:white;width:0.3rem;height:0.3rem;border-radius:50%}";
+const triangle ="_trail{width:0;height:0;background:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}";
+const square = '_trail{background:white;width:0.3rem;height:0.3rem;border-radius:0}';
 const singleT = '.anim{animation:disappear 1s ease-out forwards, grad 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
 
 interface itrail{
@@ -35,7 +35,7 @@ class Trail {
     this.#area = props.area;
     this.#color = props.color ? typeof(props.color) === "function"? new Map(props.color) : props.color: "";
     this.#offset = props.offset ? props.offset : ['0px', '0px'];
-    this.#particle = props.particle ? props.particle : 'self';
+    this.#particle = props.particle ? props.particle : "self";
     this.#delay = props.delay ? props.delay : 50;
     this.#styles = props.styles ? props.styles : singleT;
     this.#effect = props.effect ? props.effect : "straight";
@@ -66,7 +66,9 @@ class Trail {
       this.#styles += "." + this.#target + `_trail{${this.#particle}}`;
     }
     if(typeof(this.#color) === "string"){
-      this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};` //this.#particle !== "triangle" ? `_trail{background: ${this.#color};color:${this.#color};` : `_trail{border-color: ${this.#color};color:${this.#color};`;
+      if(this.#color.length > 0){
+        this.#styles += "." + this.#target + (this.#particle !== "triangle" ? `_trail{background: ${this.#color};color:${this.#color};` : `_trail{background:transparent;border-bottom:0.25rem solid ${this.#color};color:${this.#color};`);
+      }
     }
     else if(typeof(this.#color) === "object"){
       let grad = ""
