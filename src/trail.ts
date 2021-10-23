@@ -69,7 +69,7 @@ class Trail {
     }
     else if(typeof(this.#color) === "object"){
       let grad = ""
-      this.#color.forEach((value):void => {
+      this.#color.forEach((value, key):void => {
         grad += `${value[1]}%{background-color:${value[0]}}`
       });
       this.#styles += `@keyframes grad{${grad}}`
@@ -116,11 +116,12 @@ class Trail {
       })
   }
 
-  #createParticle(rand={"x": 0,"y": 0}):void{
-      let randV:{"x": number, "y": number} = rand;
+  #createParticle(rand=0):void{
+      let randV:number;
       if(this.#effect === "spread"){
-        randV.x = Math.floor(Math.random()*12-6);
-        randV.y = Math.floor(Math.random()*12-6);
+        randV = Math.floor(Math.random()*12-6);
+      }else{
+        randV = rand;
       }
       let newP:any;
       if(this.#isnode === false){
@@ -138,12 +139,12 @@ class Trail {
       }
       newP.classList.add("anim", `${this.#target}_trail`);
       if(this.#particle !== "self"){
-        newP.style.left = (Number(this.node.style.left.replace("px", ""))+randV.x - this.#bounds.width/2 + 2.4)+"px";
-        newP.style.top = (Number(this.node.style.top.replace("px", ""))+randV.y - this.#bounds.height/2 + 2.4)+"px";
+        newP.style.left = (Number(this.node.style.left.replace("px", ""))+randV - this.#bounds.width/2 + 2.4)+"px";
+        newP.style.top = (Number(this.node.style.top.replace("px", ""))+randV - this.#bounds.height/2 + 2.4)+"px";
       }
       else{
-        newP.style.left = (Number(this.node.style.left.replace("px", ""))+randV.x)+"px";
-        newP.style.top = (Number(this.node.style.top.replace("px", ""))+randV.y)+"px";
+        newP.style.left = (Number(this.node.style.left.replace("px", ""))+randV)+"px";
+        newP.style.top = (Number(this.node.style.top.replace("px", ""))+randV)+"px";
       }
       newP.style.zIndex = "0";
       document.body.appendChild(newP);
@@ -155,7 +156,7 @@ class Trail {
 
   #createParticles():void{
     for(let i=0;i<2;i++){
-      const randV = {"x": Math.floor(Math.random()*12-6),"y": Math.floor(Math.random()*12-6)};
+      const randV = Math.floor(Math.random()*12-6);
       this.#createParticle(randV);
     }
   }
