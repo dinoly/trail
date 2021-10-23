@@ -102,8 +102,8 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
         __classPrivateFieldSet(this, _Trail_styles, __classPrivateFieldGet(this, _Trail_styles, "f") + ("." + __classPrivateFieldGet(this, _Trail_target, "f") + `_trail{${__classPrivateFieldGet(this, _Trail_particle, "f")}}`), "f");
     }
     if (typeof (__classPrivateFieldGet(this, _Trail_color, "f")) === "string") {
-        if (__classPrivateFieldGet(this, _Trail_color, "f").length > 1) {
-            __classPrivateFieldSet(this, _Trail_styles, __classPrivateFieldGet(this, _Trail_styles, "f") + ("." + __classPrivateFieldGet(this, _Trail_target, "f") + `_trail{background: ${__classPrivateFieldGet(this, _Trail_color, "f")};color:${__classPrivateFieldGet(this, _Trail_color, "f")};`), "f"); //this.#particle !== "triangle" ? `_trail{background: ${this.#color};color:${this.#color};` : `_trail{border-color: ${this.#color};color:${this.#color};`;
+        if (__classPrivateFieldGet(this, _Trail_color, "f").length > 0) {
+            __classPrivateFieldSet(this, _Trail_styles, __classPrivateFieldGet(this, _Trail_styles, "f") + ("." + __classPrivateFieldGet(this, _Trail_target, "f") + (__classPrivateFieldGet(this, _Trail_particle, "f") !== "triangle" ? `_trail{background: ${__classPrivateFieldGet(this, _Trail_color, "f")};color:${__classPrivateFieldGet(this, _Trail_color, "f")};` : `_trail{background:transparent;border-bottom:0.25rem solid ${__classPrivateFieldGet(this, _Trail_color, "f")};color:${__classPrivateFieldGet(this, _Trail_color, "f")};`)), "f");
         }
     }
     else if (typeof (__classPrivateFieldGet(this, _Trail_color, "f")) === "object") {

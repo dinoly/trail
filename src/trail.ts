@@ -65,8 +65,8 @@ class Trail {
       this.#styles += "." + this.#target + `_trail{${this.#particle}}`;
     }
     if(typeof(this.#color) === "string"){
-      if(this.#color.length > 1){
-        this.#styles += "." + this.#target + `_trail{background: ${this.#color};color:${this.#color};` //this.#particle !== "triangle" ? `_trail{background: ${this.#color};color:${this.#color};` : `_trail{border-color: ${this.#color};color:${this.#color};`;
+      if(this.#color.length > 0){
+        this.#styles += "." + this.#target + (this.#particle !== "triangle" ? `_trail{background: ${this.#color};color:${this.#color};` : `_trail{background:transparent;border-bottom:0.25rem solid ${this.#color};color:${this.#color};`);
       }
     }
     else if(typeof(this.#color) === "object"){
