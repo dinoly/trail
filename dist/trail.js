@@ -15,9 +15,9 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _Trail_instances, _Trail_target, _Trail_particle, _Trail_color, _Trail_effect, _Trail_isnode, _Trail_trails, _Trail_styles, _Trail_area, _Trail_bounds, _Trail_offset, _Trail_delay, _Trail_setUpStyles, _Trail_setUpParticles, _Trail_createParticle, _Trail_createParticles;
-const circle = "_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}";
-const triangle = "_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}";
-const square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
+const circle = "_trail{background:white;width:0.3rem;height:0.3rem;border-radius:50%}";
+const triangle = "_trail{width:0;height:0;background:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}";
+const square = '_trail{background:white;width:0.3rem;height:0.3rem;border-radius:0}';
 const singleT = '.anim{animation:disappear 1s ease-out forwards, grad 1s ease-out forwards}@keyframes disappear{0%{opacity:1}100%{opacity:0}}';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class Trail {
@@ -39,9 +39,9 @@ class Trail {
         __classPrivateFieldSet(this, _Trail_bounds, this.node.getBoundingClientRect(), "f");
         __classPrivateFieldSet(this, _Trail_isnode, props.isnode === false ? props.isnode : true, "f");
         __classPrivateFieldSet(this, _Trail_area, props.area, "f");
-        __classPrivateFieldSet(this, _Trail_color, props.color ? typeof (props.color) === "function" ? new Map(props.color) : props.color : "#000000", "f");
+        __classPrivateFieldSet(this, _Trail_color, props.color ? typeof (props.color) === "function" ? new Map(props.color) : props.color : "", "f");
         __classPrivateFieldSet(this, _Trail_offset, props.offset ? props.offset : ['0px', '0px'], "f");
-        __classPrivateFieldSet(this, _Trail_particle, props.particle ? props.particle : 'self', "f");
+        __classPrivateFieldSet(this, _Trail_particle, props.particle ? props.particle : "self", "f");
         __classPrivateFieldSet(this, _Trail_delay, props.delay ? props.delay : 50, "f");
         __classPrivateFieldSet(this, _Trail_styles, props.styles ? props.styles : singleT, "f");
         __classPrivateFieldSet(this, _Trail_effect, props.effect ? props.effect : "straight", "f");
@@ -102,7 +102,9 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
         __classPrivateFieldSet(this, _Trail_styles, __classPrivateFieldGet(this, _Trail_styles, "f") + ("." + __classPrivateFieldGet(this, _Trail_target, "f") + `_trail{${__classPrivateFieldGet(this, _Trail_particle, "f")}}`), "f");
     }
     if (typeof (__classPrivateFieldGet(this, _Trail_color, "f")) === "string") {
-        __classPrivateFieldSet(this, _Trail_styles, __classPrivateFieldGet(this, _Trail_styles, "f") + ("." + __classPrivateFieldGet(this, _Trail_target, "f") + `_trail{background: ${__classPrivateFieldGet(this, _Trail_color, "f")};color:${__classPrivateFieldGet(this, _Trail_color, "f")};`), "f"); //this.#particle !== "triangle" ? `_trail{background: ${this.#color};color:${this.#color};` : `_trail{border-color: ${this.#color};color:${this.#color};`;
+        if (__classPrivateFieldGet(this, _Trail_color, "f").length > 0) {
+            __classPrivateFieldSet(this, _Trail_styles, __classPrivateFieldGet(this, _Trail_styles, "f") + ("." + __classPrivateFieldGet(this, _Trail_target, "f") + (__classPrivateFieldGet(this, _Trail_particle, "f") !== "triangle" ? `_trail{background: ${__classPrivateFieldGet(this, _Trail_color, "f")};color:${__classPrivateFieldGet(this, _Trail_color, "f")};` : `_trail{background:transparent;border-bottom:0.25rem solid ${__classPrivateFieldGet(this, _Trail_color, "f")};color:${__classPrivateFieldGet(this, _Trail_color, "f")};`)), "f");
+        }
     }
     else if (typeof (__classPrivateFieldGet(this, _Trail_color, "f")) === "object") {
         let grad = "";
