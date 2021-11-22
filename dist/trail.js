@@ -14,7 +14,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _Trail_instances, _Trail_target, _Trail_particle, _Trail_color, _Trail_effect, _Trail_isnode, _Trail_trails, _Trail_styles, _Trail_area, _Trail_bounds, _Trail_offset, _Trail_delay, _Trail_setUpStyles, _Trail_setUpParticles, _Trail_createParticle, _Trail_createParticles;
+var _Trail_instances, _Trail_target, _Trail_particle, _Trail_color, _Trail_effect, _Trail_isnode, _Trail_trails, _Trail_styles, _Trail_area, _Trail_bounds, _Trail_offset, _Trail_delay, _Trail_setUpStyles, _Trail_setUpParticles, _Trail_createParticle, _Trail_createParticles, _CanvasTrail_ctx;
 const circle = "_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}";
 const triangle = "_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}";
 const square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
@@ -39,7 +39,7 @@ class Trail {
         __classPrivateFieldSet(this, _Trail_bounds, this.node.getBoundingClientRect(), "f");
         __classPrivateFieldSet(this, _Trail_isnode, props.isnode === false ? props.isnode : true, "f");
         __classPrivateFieldSet(this, _Trail_area, props.area, "f");
-        __classPrivateFieldSet(this, _Trail_color, props.color ? typeof (props.color) === "function" ? new Map(props.color) : props.color : "#000000", "f");
+        __classPrivateFieldSet(this, _Trail_color, props.color ? typeof (props.color) === "function" ? new Map(props.color) : props.color : "", "f");
         __classPrivateFieldSet(this, _Trail_offset, props.offset ? props.offset : ['0px', '0px'], "f");
         __classPrivateFieldSet(this, _Trail_particle, props.particle ? props.particle : 'self', "f");
         __classPrivateFieldSet(this, _Trail_delay, props.delay ? props.delay : 50, "f");
@@ -155,4 +155,94 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
         __classPrivateFieldGet(this, _Trail_instances, "m", _Trail_createParticle).call(this, randV);
     }
 };
+class Particle {
+    constructor(props) {
+        this.x = props.x;
+        this.y = props.y;
+        this.size = props.size;
+        this.color = props.color;
+        this.weight = props.weight;
+        this.ctx = props.ctx;
+        this.mouse = props.mouse;
+    }
+    draw() {
+        this.ctx.beginPath();
+        this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+        this.ctx.fillStyle = this.color;
+        this.ctx.fill();
+    }
+    update() {
+        this.size -= 0.05;
+        if (this.size < 0) {
+            this.x = (this.mouse.x + ((Math.random() * 20) - 10));
+            this.y = (this.mouse.y + ((Math.random() * 20) - 10));
+            this.size = (Math.random() * 10) + 2;
+            this.weight = (Math.random() * 2) - 0.5;
+        }
+    }
+}
+class CanvasTrail {
+    constructor(props) {
+        _CanvasTrail_ctx.set(this, void 0);
+        this.noOfParticles = 100;
+        this.particleArray = [];
+        this.area = props.area;
+        this.canvas = document.getElementById(this.area);
+        __classPrivateFieldSet(this, _CanvasTrail_ctx, this.canvas.getContext("2d"), "f");
+        this.color = props.color ? props.color : "black";
+        this.offset = props.offset ? props.offset : ['0px', '0px'];
+        this.particle = props.particle ? props.particle : 'self';
+        this.delay = props.delay ? props.delay : 50;
+        this.effect = props.effect ? props.effect : "straight";
+        this.setUpStyles();
+        // this.setUpParticles();
+    }
+    setUpStyles() {
+        this.canvas.style.position = 'absolute';
+        // this.canvas.style.transform = `translate(calc(-100% + ${this.offset[0]}), calc(-100% - ${this.offset[1]}))`;
+        this.canvas.style.zIndex = `-100`;
+        this.canvas.style.pointerEvents = "none";
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        // this.canvas.style.margin = "0";
+    }
+    followMouse() {
+        const mouse = { x: 0, y: 0 };
+        window.addEventListener("mousemove", (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+        setInterval(function () {
+            mouse.x = undefined;
+            mouse.y = undefined;
+        }, 200);
+        this.generateParticles(mouse);
+        this.animate();
+    }
+    generateParticles(mouse) {
+        this.particleArray = [];
+        for (let i = 0; i < this.noOfParticles; i++) {
+            const _particle = {
+                x: 0,
+                y: 0,
+                size: (Math.random() * 5) + 2,
+                color: this.color,
+                weight: 1,
+                mouse: mouse,
+                ctx: __classPrivateFieldGet(this, _CanvasTrail_ctx, "f")
+            };
+            this.particleArray.push(new Particle(_particle));
+        }
+    }
+    animate() {
+        __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").clearRect(0, 0, this.canvas.width, this.canvas.height);
+        for (let i = 0; i < this.particleArray.length; i++) {
+            // console.log(this.particleArray[i]);
+            this.particleArray[i].update();
+            this.particleArray[i].draw();
+        }
+        requestAnimationFrame(this.animate.bind(this));
+    }
+}
+_CanvasTrail_ctx = new WeakMap();
 //# sourceMappingURL=trail.js.map
