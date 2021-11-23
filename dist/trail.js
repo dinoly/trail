@@ -14,7 +14,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _Trail_instances, _Trail_target, _Trail_particle, _Trail_color, _Trail_effect, _Trail_isnode, _Trail_trails, _Trail_styles, _Trail_area, _Trail_bounds, _Trail_offset, _Trail_delay, _Trail_setUpStyles, _Trail_setUpParticles, _Trail_createParticle, _Trail_createParticles, _CanvasTrail_ctx;
+var _Trail_instances, _Trail_target, _Trail_particle, _Trail_color, _Trail_effect, _Trail_isnode, _Trail_trails, _Trail_styles, _Trail_area, _Trail_bounds, _Trail_offset, _Trail_delay, _Trail_setUpStyles, _Trail_setUpParticles, _Trail_createParticle, _Trail_createParticles, _Particle_srink, _CanvasTrail_instances, _CanvasTrail_ctx, _CanvasTrail_setUpStyles, _CanvasTrail_setUpParticles, _CanvasTrail_connectWeb, _CanvasTrail_connectLine;
 const circle = "_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:50%}";
 const triangle = "_trail{width:0;height:0;background-color:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}";
 const square = '_trail{background-color:white;width:0.3rem;height:0.3rem;border-radius:0}';
@@ -155,8 +155,10 @@ _Trail_target = new WeakMap(), _Trail_particle = new WeakMap(), _Trail_color = n
         __classPrivateFieldGet(this, _Trail_instances, "m", _Trail_createParticle).call(this, randV);
     }
 };
+// types: Paint, Web, Line, Default
 class Particle {
     constructor(props) {
+        _Particle_srink.set(this, 0.1);
         this.x = props.x;
         this.y = props.y;
         this.size = props.size;
@@ -171,18 +173,40 @@ class Particle {
         this.ctx.fillStyle = this.color;
         this.ctx.fill();
     }
-    update() {
-        this.size -= 0.05;
+    update(effect = "default") {
+        this.size -= __classPrivateFieldGet(this, _Particle_srink, "f");
         if (this.size < 0) {
-            this.x = (this.mouse.x + ((Math.random() * 20) - 10));
-            this.y = (this.mouse.y + ((Math.random() * 20) - 10));
-            this.size = (Math.random() * 10) + 2;
-            this.weight = (Math.random() * 2) - 0.5;
+            if (effect === "default") {
+                this.x = this.mouse.x;
+                this.y = this.mouse.y;
+                this.size = (Math.random() * 5) + 5;
+                this.weight = 1;
+            }
+            else if (effect === "paint") {
+                this.x = (this.mouse.x + ((Math.random() * 20) - 10));
+                this.y = (this.mouse.y + ((Math.random() * 20) - 10));
+                this.size = (Math.random() * 10) + 2;
+                this.weight = (Math.random() * 2) - 0.5;
+            }
+            else if (effect === "web") {
+                this.x = (this.mouse.x + ((Math.random() * 20) - 10));
+                this.y = (this.mouse.y + ((Math.random() * 20) - 10));
+                this.size = (Math.random() * 3) + 2;
+                this.weight = 1;
+            }
+            else if (effect === "line") {
+                this.x = this.mouse.x;
+                this.y = this.mouse.y;
+                this.size = (Math.random() * 2) + 1;
+                this.weight = 1;
+            }
         }
     }
 }
+_Particle_srink = new WeakMap();
 class CanvasTrail {
     constructor(props) {
+        _CanvasTrail_instances.add(this);
         _CanvasTrail_ctx.set(this, void 0);
         this.noOfParticles = 100;
         this.particleArray = [];
@@ -190,21 +214,11 @@ class CanvasTrail {
         this.canvas = document.getElementById(this.area);
         __classPrivateFieldSet(this, _CanvasTrail_ctx, this.canvas.getContext("2d"), "f");
         this.color = props.color ? props.color : "black";
-        this.offset = props.offset ? props.offset : ['0px', '0px'];
+        // this.offset = props.offset ? props.offset : ['0px', '0px'];
         this.particle = props.particle ? props.particle : 'self';
-        this.delay = props.delay ? props.delay : 50;
-        this.effect = props.effect ? props.effect : "straight";
-        this.setUpStyles();
-        // this.setUpParticles();
-    }
-    setUpStyles() {
-        this.canvas.style.position = 'absolute';
-        // this.canvas.style.transform = `translate(calc(-100% + ${this.offset[0]}), calc(-100% - ${this.offset[1]}))`;
-        this.canvas.style.zIndex = `-100`;
-        this.canvas.style.pointerEvents = "none";
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        // this.canvas.style.margin = "0";
+        // this.delay = props.delay ? props.delay : 50;
+        this.effect = props.effect ? props.effect : "default";
+        __classPrivateFieldGet(this, _CanvasTrail_instances, "m", _CanvasTrail_setUpStyles).call(this);
     }
     followMouse() {
         const mouse = { x: 0, y: 0 };
@@ -216,33 +230,75 @@ class CanvasTrail {
             mouse.x = undefined;
             mouse.y = undefined;
         }, 200);
-        this.generateParticles(mouse);
         this.animate();
+        this.generateParticles(__classPrivateFieldGet(this, _CanvasTrail_instances, "m", _CanvasTrail_setUpParticles).call(this, mouse));
     }
-    generateParticles(mouse) {
+    generateParticles(particle) {
         this.particleArray = [];
         for (let i = 0; i < this.noOfParticles; i++) {
-            const _particle = {
-                x: 0,
-                y: 0,
-                size: (Math.random() * 5) + 2,
-                color: this.color,
-                weight: 1,
-                mouse: mouse,
-                ctx: __classPrivateFieldGet(this, _CanvasTrail_ctx, "f")
-            };
-            this.particleArray.push(new Particle(_particle));
+            this.particleArray.push(new Particle(particle));
         }
     }
     animate() {
         __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").clearRect(0, 0, this.canvas.width, this.canvas.height);
         for (let i = 0; i < this.particleArray.length; i++) {
-            // console.log(this.particleArray[i]);
-            this.particleArray[i].update();
+            this.particleArray[i].update(this.effect);
             this.particleArray[i].draw();
+        }
+        if (this.effect === "web") {
+            __classPrivateFieldGet(this, _CanvasTrail_instances, "m", _CanvasTrail_connectWeb).call(this);
+        }
+        else if (this.effect === "line") {
+            __classPrivateFieldGet(this, _CanvasTrail_instances, "m", _CanvasTrail_connectLine).call(this);
         }
         requestAnimationFrame(this.animate.bind(this));
     }
 }
-_CanvasTrail_ctx = new WeakMap();
+_CanvasTrail_ctx = new WeakMap(), _CanvasTrail_instances = new WeakSet(), _CanvasTrail_setUpStyles = function _CanvasTrail_setUpStyles() {
+    this.canvas.style.position = 'absolute';
+    // this.canvas.style.transform = `translate(calc(-100% + ${this.offset[0]}), calc(-100% - ${this.offset[1]}))`;
+    this.canvas.style.zIndex = `-100`;
+    this.canvas.style.pointerEvents = "none";
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+}, _CanvasTrail_setUpParticles = function _CanvasTrail_setUpParticles(mouse) {
+    const _particle = {
+        x: 0,
+        y: 0,
+        size: 0.2,
+        color: this.color,
+        weight: 0,
+        mouse: mouse,
+        ctx: __classPrivateFieldGet(this, _CanvasTrail_ctx, "f")
+    };
+    return _particle;
+}, _CanvasTrail_connectWeb = function _CanvasTrail_connectWeb() {
+    let opacityValue = 1;
+    for (let i = 0; i < this.particleArray.length; i++) {
+        for (let j = i; j < this.particleArray.length; j++) {
+            const distance = ((this.particleArray[i].x - this.particleArray[j].x) * (this.particleArray[i].x - this.particleArray[j].x)) + ((this.particleArray[i].y - this.particleArray[j].y) * (this.particleArray[i].y - this.particleArray[j].y));
+            if (distance < 400) {
+                opacityValue = 1 - (distance / 10000);
+                __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").strokeStyle = this.color;
+                __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").beginPath();
+                __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").lineWidth = 1;
+                __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").moveTo(this.particleArray[i].x, this.particleArray[i].y);
+                __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").lineTo(this.particleArray[j].x, this.particleArray[j].y);
+                __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").stroke();
+            }
+        }
+    }
+}, _CanvasTrail_connectLine = function _CanvasTrail_connectLine() {
+    let opacityValue = 1;
+    for (let i = 0; i < this.particleArray.length - 1; i++) {
+        const distance = ((this.particleArray[i].x - this.particleArray[i + 1].x) * (this.particleArray[i].x - this.particleArray[i + 1].x)) + ((this.particleArray[i].y - this.particleArray[i + 1].y) * (this.particleArray[i].y - this.particleArray[i + 1].y));
+        opacityValue = 1 - (distance / 10000);
+        __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").strokeStyle = this.color;
+        __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").beginPath();
+        __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").lineWidth = 1.5;
+        __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").moveTo(this.particleArray[i].x, this.particleArray[i].y);
+        __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").lineTo(this.particleArray[i + 1].x, this.particleArray[i + 1].y);
+        __classPrivateFieldGet(this, _CanvasTrail_ctx, "f").stroke();
+    }
+};
 //# sourceMappingURL=trail.js.map
