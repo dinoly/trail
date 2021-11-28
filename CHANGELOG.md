@@ -5,7 +5,7 @@
 - Added delay and offset parameter [#12](https://github.com/dinoly/trail/pull/12)
 - Gradient color in Trail [#14](https://github.com/dinoly/trail/pull/14)
 - **CanvasTrail** Class [#19](https://github.com/dinoly/trail/pull/19)
-- Changelog [#20](https://github.com/dinoly/trail/pull/20)
+- Changelog [#21](https://github.com/dinoly/trail/pull/21)
 
 #### Bug fixed:
 - Fixed particle spread effect [#17](https://github.com/dinoly/trail/pull/17)
