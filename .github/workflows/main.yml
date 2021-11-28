@@ -33,4 +33,4 @@ jobs:
       run: npm ci
 
     - name: TS compile and lint
-      run: npm run ts:all
+      run: npm run ts:ci
