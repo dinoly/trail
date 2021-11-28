@@ -168,6 +168,7 @@ interface particle{
   x:number,
   y:number,
   size:number,
+  range:number,
   color:string,
   weight:number,
   ctx:CanvasRenderingContext2D
@@ -175,12 +176,13 @@ interface particle{
 }
 // types: Paint, Web, Line, Default
 class Particle{
-  x:number;y:number;size:number;color:string;weight:number;ctx:CanvasRenderingContext2D;mouse:mouse;
+  x:number;y:number;size:number;range:number;color:string;weight:number;ctx:CanvasRenderingContext2D;mouse:mouse;
   #srink=0.1;
   constructor(props:particle){
     this.x = props.x;
     this.y = props.y;
     this.size = props.size;
+    this.range = props.range;
     this.color = props.color;
     this.weight = props.weight;
     this.ctx = props.ctx;
@@ -199,13 +201,13 @@ class Particle{
       if (effect === "default"){
         this.x = this.mouse.x!;
         this.y = this.mouse.y!;
-        this.size = (Math.random() * 5) + 5;
+        this.size = (Math.random() * this.range) + this.range;
         this.weight = 1;
       }
       else if(effect==="paint"){
         this.x = (this.mouse.x! + ((Math.random() * 20) - 10));
         this.y = (this.mouse.y! + ((Math.random() * 20) - 10));
-        this.size = (Math.random() * 10) + 2;
+        this.size = (Math.random() * this.range) + this.range;
         this.weight = (Math.random() * 2) - 0.5;
       }
       else if(effect==="web"){
@@ -235,22 +237,24 @@ interface ctrail{
   particle?: string,
   color?: string,
   effect?: string,
+  size?: number
 }
 
 
 class CanvasTrail{
-  #ctx:CanvasRenderingContext2D;canvas:HTMLCanvasElement;noOfParticles=100;particleArray:Particle[]=[];
-  particle:string;color:string;effect:string;area?:string;//offset:string[];delay:number;
+  #ctx:CanvasRenderingContext2D;canvas:HTMLCanvasElement;noOfParticles=80;particleArray:Particle[]=[];
+  particle:string;color:string;effect:string;area:string;size:number;//offset:string[];delay:number;
 
   constructor(props:ctrail){
     this.area = props.area;
     this.canvas = <HTMLCanvasElement> document.getElementById(this.area)!;
     this.#ctx = this.canvas.getContext("2d")!;
     this.color = props.color ? props.color : "black";
-    // this.offset = props.offset ? props.offset : ['0px', '0px'];
+    this.effect = props.effect ? props.effect : "default";
     this.particle = props.particle ? props.particle : 'self';
     // this.delay = props.delay ? props.delay : 50;
-    this.effect = props.effect ? props.effect : "default";
+    this.particle = props.particle ? props.particle : "default";
+    this.size = props.size ? props.size>0 && props.size < 10? props.size: 5 : 5;
     this.#setUpStyles();
   }
 
@@ -265,10 +269,11 @@ class CanvasTrail{
 
   #setUpParticles(mouse:mouse):particle{
     const _particle = {
-      x: 0,//Math.random() * this.canvas.width,
-      y: 0,//Math.random() * this.canvas.width,
+      x: Math.random() * this.canvas.width,
+      y: Math.random() * this.canvas.width,
       size: 0.2, // (Math.random() * 5) + 2,
       color: this.color,
+      range: this.size,
       weight: 0,
       mouse:mouse,
       ctx:this.#ctx
@@ -299,24 +304,24 @@ class CanvasTrail{
   animate():void{
     this.#ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     for(let i=0; i<this.particleArray.length; i++){
-      this.particleArray[i].update(this.effect);
+      this.particleArray[i].update(this.particle);
       this.particleArray[i].draw();
     }
-    if(this.effect==="web"){
+    if(this.particle==="web"){
       this.#connectWeb();
     }
-    else if(this.effect==="line"){
+    else if(this.particle==="line"){
       this.#connectLine();
     }
     requestAnimationFrame(this.animate.bind(this));
   }
   #connectWeb():void{
-    let opacityValue=1;
+    // let opacityValue=1;
     for(let i=0; i<this.particleArray.length; i++){
       for(let j=i; j<this.particleArray.length; j++){
         const distance = ((this.particleArray[i].x - this.particleArray[j].x) * (this.particleArray[i].x - this.particleArray[j].x)) + ((this.particleArray[i].y - this.particleArray[j].y) * (this.particleArray[i].y - this.particleArray[j].y));
         if(distance < 400){
-          opacityValue = 1 - (distance/10000);
+          // opacityValue = 1 - (distance/10000);
           this.#ctx.strokeStyle = this.color;
           this.#ctx.beginPath();
           this.#ctx.lineWidth = 1;
@@ -328,10 +333,10 @@ class CanvasTrail{
     }
   }
   #connectLine():void{
-    let opacityValue=1;
+    // let opacityValue=1;
     for(let i=0; i<this.particleArray.length-1; i++){
-      const distance = ((this.particleArray[i].x - this.particleArray[i+1].x) * (this.particleArray[i].x - this.particleArray[i+1].x)) + ((this.particleArray[i].y - this.particleArray[i+1].y) * (this.particleArray[i].y - this.particleArray[i+1].y));
-      opacityValue = 1 - (distance/10000);
+      // const distance = ((this.particleArray[i].x - this.particleArray[i+1].x) * (this.particleArray[i].x - this.particleArray[i+1].x)) + ((this.particleArray[i].y - this.particleArray[i+1].y) * (this.particleArray[i].y - this.particleArray[i+1].y));
+      // opacityValue = 1 - (distance/10000);
       this.#ctx.strokeStyle = this.color;
       this.#ctx.beginPath();
       this.#ctx.lineWidth = 1.5;

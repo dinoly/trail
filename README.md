@@ -185,20 +185,19 @@ body {
 ### Canvas Arguments
 ```js
 {
-  area: "canvas",
-  color: "#ffffff50",
-  effect: "line"
+  area: null,
+  color: "black",
+  effect: "default",
+  size: 5
 }
 ```
 
 | Name         | Description     | code | types |
 |--------------|-----------|------------|-------|
 | **area** | Is the **id** of the HTMLCanvasElement inside which the trail will be generated. | `area: "canvas"`| none |
-| **color** | Color of the trail | `effect:"spread"`| none |
-| **effect** | Behavior of the trail | `effect:"paint"`| "default", "paint", "web", "line" |
-
-
-Note: if this `trails:true` creates a lag, use the `effect: "spread"` which will create similar effect with one particle.
+| **color** | Color of the trail | `color:"#ffffff50"`| none |
+| **particle** | Behavior of the trail | `particle:"paint"`| "default", "paint", "web", "line" |
+| **size** | size of the particle, ranges between `1 to 9` | `size:"2"`| none |
 
 
 ### Canvas Methods
