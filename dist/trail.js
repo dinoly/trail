@@ -14,6 +14,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
+
 var _Trail_instances, _Trail_target, _Trail_particle, _Trail_color, _Trail_effect, _Trail_isnode, _Trail_trails, _Trail_styles, _Trail_area, _Trail_bounds, _Trail_offset, _Trail_delay, _Trail_setUpStyles, _Trail_setUpParticles, _Trail_createParticle, _Trail_createParticles, _Particle_srink, _CanvasTrail_instances, _CanvasTrail_ctx, _CanvasTrail_setUpStyles, _CanvasTrail_setUpParticles, _CanvasTrail_connectWeb, _CanvasTrail_connectLine;
 const circle = "_trail{background:white;width:0.3rem;height:0.3rem;border-radius:50%}";
 const triangle = "_trail{width:0;height:0;background:transparent;border-left:0.25rem solid transparent;border-right:0.25rem solid transparent;border-bottom:0.25rem solid white}";
