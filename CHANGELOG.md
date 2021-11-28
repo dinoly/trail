@@ -1,4 +1,16 @@
 # Changelog
+## 0.4.0 (2021-11-29)
+#### Merged pull requests:
+- Add custom styling to particle [#11](https://github.com/dinoly/trail/pull/11)
+- Added delay and offset parameter [#12](https://github.com/dinoly/trail/pull/12)
+- Gradient color in Trail [#14](https://github.com/dinoly/trail/pull/14)
+- **CanvasTrail** Class [#19](https://github.com/dinoly/trail/pull/19)
+- Changelog [#20](https://github.com/dinoly/trail/pull/20)
+
+#### Bug fixed:
+- Fixed particle spread effect [#17](https://github.com/dinoly/trail/pull/17)
+- Fixed Text offset and triangle particle color [#18](https://github.com/dinoly/trail/pull/18)
+
 ## 0.3.6 (2021-09-04)
 #### Merged pull requests:
 - corrected version in readme [#8](https://github.com/dinoly/trail/pull/8)
