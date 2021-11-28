@@ -5,9 +5,11 @@
   "main": "trail.min.js",
   "scripts": {
     "test": "mocha",
-    "ts:all": "tsc && npm run ts:lint",
+    "ts:ci": "npm run ts:lint && tsc",
+    "ts:compile": "npm run ts:lint && tsc && npm run ts:minify",
     "ts:watch": "tsc -w",
     "ts:lint": "tsc && eslint src/**/*.ts",
+    "ts:minify": "minify --type=js dist/trail.js > dist/trail.min.js",
     "npm:content": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
   },
   "repository": {

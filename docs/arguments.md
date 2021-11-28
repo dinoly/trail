@@ -78,12 +78,6 @@ Set `false` if you want a trail for a **Text** or **Svg**, default: `true`
 isnode: false,
 ```
 
-<!-- ### margin
-value of the margin that is applied on the **html node**.
-```js
-margin: "2px",
-``` -->
-
 ### effect
 The effect you want particles to have
 ```js
